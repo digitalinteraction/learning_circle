@@ -6,7 +6,7 @@ Colls.StripePayments = new UniCollection('StripePayments');
 Colls.StripePaymentsErrors = new UniCollection('StripePaymentsErrors');
 
 // you need to change it to secret key 'live' not 'test'
-var stripeSecretKey = 'sk_test_QxcN3GF28gCm4YWy0sA2vqSS';
+var stripeSecretKey = Meteor.settings.private.stripeKey;
 
 Meteor.methods({
     'stripeChargeCard': function (stripeToken, course, customerEmail) {
