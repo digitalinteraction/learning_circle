@@ -1,3 +1,0 @@
-#!/bin/bash
-echo -e $( (echo "Entering '.'" && git -c color.status=always status -s -b && git submodule foreach git -c color.status=always status -s -b)| sed ':a;N;$!ba;s/\n/\\n/g' | sed  "s/'\([[:graph:]]*\)'/\\\033[01;34m\1\\\033[0m/g"| sed  "s/\Entering/\\\033[01;34m\\\033[0m/g"| sed "s/\\\n##//g") 
-

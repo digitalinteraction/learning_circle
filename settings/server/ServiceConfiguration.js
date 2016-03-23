@@ -12,8 +12,8 @@ if (process.env.NODE_ENV === 'development') {
     });
     ServiceConfiguration.configurations.insert({
         service: 'facebook',
-        appId: '329322717179494',
-        secret: '588ca2501cdeab855ce6e45217b8a881'
+        appId: Meteor.settings.private.development.FbAppId,
+        secret: Meteor.settings.private.development.FbSecret
     });
 
     //google app created by Maciek, works on localhost
@@ -24,8 +24,8 @@ if (process.env.NODE_ENV === 'development') {
         service: 'google',
         // needed for schedules google calendar events testing
         // it is on vazcodev@gmail.com
-        clientId: '63357255403-vbjlphjknmari1pdsr6vbktm54vl36t7.apps.googleusercontent.com',
-        secret: 'FX4Jha6ca2aF4IZBoJlFMukf'
+        clientId: Meteor.settings.private.development.GoogleClientId,
+        secret: Meteor.settings.private.development.GoogleSecret
         // original: clientId: '88337990440-our8galvacje54jk26os94md1aro4kar.apps.googleusercontent.com',
         // original: secret: 'UpAHAwwLZru1vzT8Vozdq-2M'
     });
