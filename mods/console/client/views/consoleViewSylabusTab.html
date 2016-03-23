@@ -1,0 +1,90 @@
+<template name="consoleViewSyllabusTab">
+    <div class="syllabus-tab" id="syllabus">
+        {{#with course}}
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>{{i18n 'courses.viewTitle'}}</h3>
+                    {{> consoleViewSylabusCourseContent}}
+                </div>
+            </div>
+            <hr>
+            <div class="row mtl">
+                <div class="col-sm-12">
+                    {{> consoleViewSylabusContent}}
+                </div>
+            </div>
+        {{/with}}
+        <hr>
+        <div class="row mtl">
+            {{#if isInRole 'global_admin'}}
+                {{#if shedulesLectureEditMode}}
+                    <div class="col-sm-12">
+                        <div class="box_style_2 mtl">{{> schedulesLectureUpdateForm}}</div>
+                    </div>
+                {{else}}
+                    <div class="col-sm-12">
+                        <div class="box_style_2 mtl">{{> schedulesLectureInsertForm}}</div>
+                    </div>
+                {{/if}}
+                <div class="col-sm-12">
+                    <h3>Lectures:</h3>
+                    <div class="syllabus-tab-lectures-list">
+                        {{#each schedulesLectureList}}
+                            <div>
+                                <h3>
+                                    {{title}}
+                                    {{#if isInRole 'global_admin'}}
+                                        <small>
+                                            <a href="#" class="js-edit-lecture lc-btn">{{i18n 'common.edit'}}</a>
+                                        </small>
+                                    {{/if}}
+                                </h3>
+                            </div>
+                            <div>
+                                <strong>{{i18n 'common.description'}}</strong> <span>{{description}}</span>
+                            </div>
+                            <div>
+                                <strong>{{i18n 'common.hangoutLink'}}</strong> <span>{{hangoutLink}}</span>
+                            </div>
+                            <div>
+                                <strong>{{i18n 'common.date'}}</strong> <span>{{formatDate date 'll'}}</span>
+                            </div>
+                            <div>
+                                <strong>{{i18n 'common.time'}}</strong> <span>{{formatDate date 'HH:mm'}}</span>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</template>
+
+<template name="consoleViewSylabusCourseContent">
+    <h3>{{title}} {{#if isInRole 'global_admin'}} <small><a href="{{pathFor 'courseEdit' courseId=currentCourseContextId}}" class="pull-right lc-btn">{{i18n 'courses.editLabel'}}</a></small>{{/if}}</h3>
+    {{{description}}}
+</template>
+
+<template name="consoleViewSylabusContent">
+    <h3>
+        {{i18n 'courses.syllabusLabel'}}
+        {{#if isInRole 'global_admin'}}
+            <small>
+                {{#if isInEditMode}}
+                    <a href="#" class="pull-right lc-btn js-edit-syllabus-content">
+                        {{i18n 'common.save'}}
+                    </a>
+                {{else}}
+                    <a href="#" class="pull-right lc-btn js-edit-syllabus-content">
+                        {{i18n 'syllabus.editSyllabus'}}
+                    </a>
+                {{/if}}
+            </small>
+        {{/if}}
+    </h3>
+    {{#if isInEditMode}}
+        <div contenteditable id="syllabus-editable" class="syllabus-edit">{{{syllabus}}}</div>
+    {{else}}
+        <div>{{{syllabus}}}</div>
+    {{/if}}
+</template>

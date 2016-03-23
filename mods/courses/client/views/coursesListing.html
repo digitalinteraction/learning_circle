@@ -1,0 +1,126 @@
+<template name="coursesListingHeader">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h1>{{i18n 'courses.listTitle'}}</h1>
+        </div>
+    </div>
+</template>
+
+<template name="coursesListing">
+    <div class="container">
+        <div class="row">
+            <aside class="col-xs-12 col-sm-4 col-md-3 pull-right">
+                <div class="box_style_1">
+                    {{!-- #if isInRole 'global_admin'}}
+                        <div class="widget">
+                            <a href="{{pathFor 'coursesAdd'}}" class="lc-btn-block-big">Add course</a>
+                        </div>
+                    {{/if --}}
+                    <div class="widget hidden-xs hidden-sm">
+                        <h4>{{i18n 'announcements.titleLabel'}}</h4>
+                        <p>
+                            {{i18n 'announcements.description'}}
+                        </p>
+                    </div>
+                </div>
+            </aside>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row">
+                    {{> headerWithSearch2 index="Courses"}}
+                </div>
+                <div class="row">
+    
+                    {{#ifEsInputIsEmpty index="Courses"}}
+                        {{#each courses}}
+                            <div class="col-md-6">
+                                {{> courseListingItem}}
+                            </div>
+                        {{/each}}
+                    {{/ifEsInputIsEmpty}}
+    
+                    {{#ifEsIsSearching index="Courses"}}
+                        <div class="text-center">
+                            <div class="spinner">
+                                <div class="double-bounce1"></div>
+                                <div class="double-bounce2"></div>
+                            </div>
+                        </div>
+                    {{else}}
+                        <div class="results-wrapper">
+                            {{#esEach index="Courses"}}
+                                <div class="col-md-6">
+                                    {{> courseListingItem}}
+                                </div>
+                            {{/esEach}}
+                        </div>
+                    {{/ifEsIsSearching}}
+                </div>
+                {{#ifEsHasNoResults index="Courses"}}
+                    <hr>
+                    <div>
+                        <div class="no-results">
+                            <h2>{{i18n 'courses.searchNoResultsInfo'}}</h2>
+                        </div>
+                    </div>
+                {{/ifEsHasNoResults}}
+                <hr>
+                <div class="text-center">
+                    {{> esLoadMoreButton class="lc-btn-outline-big" content="Load more" index="Courses"}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="courseListingItem">
+    <div class="course-item col-item">
+        <div class="photo">
+            <div class="course-item-title">
+                <h4>
+                    <a href="{{pathFor 'courseView' courseId=_id}}">{{title}}</a>
+                </h4>
+            </div>
+            <a href="{{pathFor 'courseView' courseId=_id}}">
+                {{> courseViewImage}}
+            </a>
+            <div class="info">
+                <a href="{{getCommunityUrl _id}}">{{getCommunityTitleForCourseId _id}}</a>
+            </div>
+            <div class="cat_row">
+                <div class="pull-left">
+                    {{#if startsIn startDate 'hours'}}
+                        <i class="icon-clock"></i> {{i18n 'courses.dateStartsInLabel'}} {{startsInValue}}
+                    {{else}}
+                        <i class="icon-clock"></i> {{i18n 'courses.startedLabel'}}
+                    {{/if}}
+                </div>
+                <div class="pull-right">
+                    <span class="badge" title="Course participants">
+                        {{> participantsCount}}
+                    </span>
+                    {{#unless isInRole 'global_admin'}}
+                        {{#unless isInRole 'course_mentor' _id}}
+                            {{#if canApply}}
+                                <a href="{{pathFor 'courseView' courseId=_id}}" class="button_top red mtn">
+                                    {{i18n 'courses.applyLabel'}}
+                                </a>
+                            {{/if}}
+                        {{/unless}}
+                    {{/unless}}
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="info">
+            <div class="row">
+                <div class="course_info col-md-12 col-sm-12">
+                    <p class="course-clip-text">{{stripHTMLandTrim description 100 ' ...'}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="participantsCount">
+    {{participantCountValue}}
+</template>

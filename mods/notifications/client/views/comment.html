@@ -1,0 +1,21 @@
+<template name="notificationCommentItem">
+    <div class="row uni-notifications-item-wrapper">
+        <div class="col-xs-12 uni-notifications-item-container">
+            <div class="inline-block">
+                {{#getUser authorInfo._id}}
+                    {{#if avatar}}
+                        <img src="{{avatar.url}}" class="img-circle" alt="">
+                    {{else}}
+                        <img src="/img/160x160.gif" alt="" class="img-circle styled">
+                    {{/if}}
+                {{/getUser}}
+            </div>
+            <div class="inline-block mls">
+                <a href="{{getURL}}">
+                    <strong>{{authorInfo.name}}</strong> commented <span class="seledin-text">{{entityTitle}}</span>
+                    <span class="time-created-label">{{formatingtime createdAt 'MMM DD, YYYY hh:mm'}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</template>

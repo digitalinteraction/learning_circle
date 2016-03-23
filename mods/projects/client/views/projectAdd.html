@@ -1,0 +1,70 @@
+<template name="projectAdd">
+    <div class="container">
+        <div class="row">
+            {{!--
+            <aside class="col-xs-12 col-md-4 pull-right">
+                <div class="box_style_1">
+                    <h4>Some empty space</h4>
+
+                    <p>Lorem ipsum</p>
+                </div>
+            </aside> --}}
+            <div class="col-xs-12 col-md-12">
+                <div class="post project-add">
+                    {{#uniEntity type='insert' entity=UniCMSEntity.project}}
+                        <h2>{{i18n 'projects.projectTitle'}}</h2>
+
+                        <p>{{> uniComponent name='title'}}</p>
+
+                        <h2>{{i18n 'projects.coverImage'}}</h2>
+
+                        <p>{{> uniComponent name='image'}}</p>
+
+                        <!-- <h2>{{i18n 'projects.brief'}}</h2> -->
+
+                        <!-- <blockquote><p>{{> uniComponent name='brief'}}</p></blockquote> -->
+
+                        {{#with currentTask}}
+                            <hr>
+                            <h2>Task title: {{title}}</h2>
+                            <p>Task description: {{{description}}}</p>
+                            <hr>
+                        {{/with}}
+
+                        <h2>{{i18n 'projects.content'}}</h2>
+
+                        <p>{{> uniComponent name='content'}}</p>
+
+                        {{#if getTaskId}}
+                            <!-- <p>{{i18n 'projects.addingAsAssigment'}} <code>{{getTaskId}}</code></p> -->
+
+                            {{> uniComponent name='taskId' value=getTaskId}}
+
+                        {{/if}}
+                        {{> uniComponent name='courseId' value=getCourseId}}
+                        {{> uniComponent name='status'}}
+
+
+                        <div class="row" style="margin: 5px;">
+                            {{#unless projectIsSubmitting}}
+                                <div class="col-xs-6 col-md-6">
+                                    <span class="lc-btn-light js-cancel">{{i18n 'common.cancel'}}</span>
+                                </div>
+                                <div class="col-xs-6 col-md-6">
+                                <span class="lc-btn pull-right js-save-and-publish"
+                                      data-status="published">{{i18n 'common.publish'}}</span>
+                                    <span class="lc-btn-light pull-right js-save">{{i18n 'common.saveAsDraft'}}</span>
+                                </div>
+                            {{else}}
+                                <div class="col-sm-12">
+                                    {{> UniRiverPaginationSpinner}}
+                                </div>
+                            {{/unless}}
+                        </div>
+
+                    {{/uniEntity}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,209 @@
+<template name="projectView">
+    <div class="container">
+        <div class="row">
+            <aside class="col-xs-12 col-md-4 pull-right">
+                <div class="box_style_1">
+                    {{#if isReady}}
+                        {{#if project.canEdit}}
+                            <div class="widget">
+                                {{#if eq project.status 'archived'}}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{i18n 'projects.archived'}}
+                                    </div>
+                                    {{#if project.canArchive}}
+                                        <span class="lc-btn-block-big js-set-status" data-status="draft" data-placement="top"
+                                              title="Are you sure you want to unarchive this project?">{{i18n 'common.unarchive'}}</span>
+                                    {{/if}}
+                                {{else}}
+                                    {{#unless project.editMode}}
+                                        <span class="lc-btn-block-big js-edit">{{i18n 'common.edit'}}</span>
+                                    {{/unless}}
+                                    {{#if project.canArchive}}
+                                        <span class="lc-btn-block-big js-set-status" data-status="archived" data-placement="top"
+                                              title="Are you sure you want to archive this project?">{{i18n 'common.archive'}}</span>
+                                    {{/if}}
+                                    {{#if project.canFeatured}}
+                                        <span class="lc-btn-block-big js-post-toggle-public">{{#if project.public}}{{i18n 'common.revertToNonpublic'}}{{else}}{{i18n 'common.makePublic'}}{{/if}}</span>
+                                    {{/if}}
+                                {{/if}}
+                            </div>
+                        {{else}}
+                            <span class="lc-btn-block-dark js-project-report"
+                                  data-status="reported">{{i18n 'common.report'}}</span>
+                            {{#if project.canFeatured}}
+                            <div class="widget">
+                                <span class="lc-btn-block-big js-post-toggle-public">{{#if project.public}}{{i18n 'common.revertToNonpublic'}}{{else}}{{i18n 'common.makePublic'}}{{/if}}</span>
+                            </div>
+                            {{/if}}
+                        {{/if}}
+
+                        {{#if eq project.status 'published'}}
+                            <div class="widget">
+
+                                <span class="uni-join-button-project">
+                                    {{> uniAnyJoinButton joiningName="project" subjectId=project._id subjectName="project"}}
+                                </span>
+
+                                <h4>{{i18n 'common.connect'}}</h4>
+
+                                <div class="text-center">
+                                    <ul id="follow_us">
+                                        <li>
+                                            <a href="#" class="js-share" data-type="google"><i class="icon-google"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="js-share" data-type="facebook"><i class="icon-facebook"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="js-share" data-type="twitter"><i class="icon-twitter"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="js-share" data-type="pinterest"><i
+                                                    class="icon-pinterest"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        {{/if}}
+                    {{/if}}
+                </div>
+            </aside>
+            <div class="col-xs-12 col-md-8">
+                <div class="post">
+                    {{#uniEntity doc=project}}
+                        {{#if project.editMode}}<h2>Project title</h2>{{/if}}
+                        <h2><span class="fullview-like-button pull-right">{{> likeButtons collection='Project' doc=project}}</span>{{> uniComponent name='title'}} </h2>
+
+                        {{#if project.editMode}}<h2>Image</h2>{{/if}}
+                        {{#uniComponent name='image' loadingTemplate='blogViewImageLoading'}}
+                            <img src="{{url store='bigCover'}}" alt=""
+                                 class="img-responsive js-share-media unicms__files--replace-on-click js-replace-on-click">
+                        {{else}}
+                            <img src="/img/placeholder750x300.jpg" alt=""
+                                 class="img-responsive js-share-media unicms__files--replace-on-click js-replace-on-click">
+                        {{/uniComponent}}
+
+                        <!-- <blockquote><p>{{> uniComponent name='brief'}}</p></blockquote> -->
+
+                        <br>
+                        {{#if project.editMode}}<h2>Content</h2>{{/if}}
+                        <p>{{> uniComponent name='content'}}</p>
+
+                        {{#if project.editMode}}
+                            <div class="row" style="margin: 5px;">
+                                {{#unless projectIsSubmitting}}
+                                    <div class="col-xs-6 col-md-6">
+                                        <span class="lc-btn-light js-cancel">{{i18n 'common.cancel'}}</span>
+                                        <span class="lc-btn-light js-delete" data-placement="top"
+                                              title="Are you sure you want to delete this project?">{{i18n 'common.delete'}}</span>
+                                    </div>
+                                    {{#if eq project.status 'published'}}
+                                        <div class="col-xs-6 col-md-6">
+                                            <span class="lc-btn pull-right js-save">{{i18n 'common.update'}}</span>
+                                            <span class="lc-btn-light pull-right js-set-status"
+                                                  data-status="draft">{{i18n 'common.unpublish'}}</span>
+                                        </div>
+                                    {{else}}
+                                        <div class="col-xs-6 col-md-6">
+                                            <span class="lc-btn pull-right js-set-status"
+                                                  data-status="published">{{i18n 'common.publish'}}</span>
+                                            <span class="lc-btn-light pull-right js-save">{{i18n 'common.saveAsDraft'}}</span>
+                                        </div>
+                                    {{/if}}
+                                {{else}}
+                                    <div class="col-sm-12">
+                                        {{> UniRiverPaginationSpinner}}
+                                    </div>
+                                {{/unless}}
+                            </div>
+                        {{/if}}
+                    {{else}}
+                        {{#if isReady}}
+                            <h4>{{i18n 'projects.notFound'}}</h4>
+                            {{else}}
+                            {{> UniRiverPaginationSpinner}}
+                        {{/if}}
+                    {{/uniEntity}}
+
+                    {{#if project}}
+                        {{#if or isJoined project.canEdit}}
+                            {{#if project.editMode}}<h2>Update field</h2>{{/if}}
+                            <p>
+                                {{#with project}}
+                                    {{> updateProjectField}}
+                                {{/with}}
+                            </p>
+                        {{else}}
+                            {{#if project.updateProject}}
+                                <h2>Update field</h2>
+
+                                <p>{{project.updateProject}}</p>
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+
+                    {{#uniEntity doc=project}}
+                            <div class="comments">
+                                <hr>
+                                <h2>Public comments</h2>
+
+                                <div class="comments-list">
+                                    {{> commentsList docId=doc._id docCollection='Project'}}
+                                </div>
+                            </div>
+                    {{/uniEntity}}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="updateProjectField">
+    <h2>Update</h2>
+    {{#each getProjectPosts}}
+        {{#uniEntity doc=this}}
+            <div class="project-post-item">
+                {{#if doc.canEdit}}
+                    {{#unless doc.editMode}}
+                        <div class="tools">
+                            <a href="#" class="js-edit-project-post"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a href="#" class="js-delete-project-post"><span class="glyphicon glyphicon-remove"></span></a>
+                        </div>
+                    {{/unless}}
+                {{/if}}
+                <div class="owner-info">
+                    {{#with getUserFromId doc.ownerId}}
+                    <div class="avatar">
+                        <a href="{{pathFor 'uniProfile' _id=_id}}">
+
+                                {{#if getAvatar}}
+                                    <img src="{{getAvatar}}" class="img-circle styled" alt="">
+                                {{else}}
+                                    <img src="/img/160x160.gif" alt="" class="img-circle styled">
+                                {{/if}}
+
+                        </a>
+                    </div>
+                    <div class="info">
+                        posted by <a href="{{pathFor 'uniProfile' _id=_id}}">{{getName}}</a><br>
+                        <span class="created-time">published at {{formatDate ../doc.createdAt 'lll'}}</span>
+                    </div>
+                    {{/with}}
+                </div>
+                <div class="content">{{> uniComponent name='content'}}</div>
+                {{#if doc.editMode}}
+                    <button class="lc-btn pull-right">{{i18n 'common.save'}}</button>
+                {{/if}}
+                <div class="clearfix"></div>
+            </div>
+        {{/uniEntity}}
+    {{/each}}
+    <hr>
+    {{#uniEntity type='insert' entity=UniCMSEntity.projectPost}}
+        <div>{{> uniComponent name='content'}}</div>
+        <div>{{> uniComponent name='projectId' value=../_id}}</div>
+        <button class="lc-btn pull-right">{{i18n 'common.publish'}}</button>
+    {{/uniEntity}}
+    <div class="clearfix"></div>
+</template>

@@ -1,0 +1,143 @@
+<template name="courseViewImage">
+    {{#with courseFileObj}}
+        <img src="{{url}}" alt="" class="img-responsive">
+    {{/with}}
+</template>
+
+<template name="courseViewImageWidget">
+    {{#with fileObj}}
+        <img src="{{url}}" alt="course image">
+    {{/with}}
+</template>
+
+<template name="courseView">
+    {{#with course}}
+        <div class="container">
+            <div class="row">
+                <aside class="col-xs-12 col-sm-12 col-md-4 pull-right">
+                    <div class="box_style_1">
+                        {{#if isInRole 'global_admin'}}
+                        <div class="widget">
+                            <a href="{{pathFor 'courseEdit' courseId=_id}}" class="lc-btn-block-big">{{i18n 'courses.editLabel'}}</a>
+                            <a href="{{pathFor 'tasksAdd' courseId=_id}}" class="lc-btn-block-big">{{i18n 'tasks.addLabel'}}</a>
+                        </div>
+                        {{else}}
+                            {{#if isInRole 'community_admin' community_id}}
+                            <div class="widget">
+                                <a href="{{pathFor 'courseEdit' courseId=_id}}" class="lc-btn-block-big">{{i18n 'courses.editLabel'}}</a>
+                                <a href="{{pathFor 'tasksAdd' courseId=_id}}" class="lc-btn-block-big">{{i18n 'tasks.addLabel'}}</a>
+                            </div>
+                            {{/if}}
+                            {{#unless isInRole 'course_student' _id}}
+                                {{#unless isInRole 'course_mentor' _id}}
+                                <div class="widget">
+                                    {{#if canApply}}
+                                        <a href="{{pathFor 'applyView' courseId=_id}}" class="lc-btn-block-big red">{{i18n 'courses.fullviewApplyLabel'}}</a>
+                                    {{/if}}
+                                    <a href="{{pathFor 'applyMentorView' courseId=_id}}" class="lc-btn-block-big">{{i18n 'courses.signUpMentorLabel'}}</a>
+                                </div>
+                                {{/unless}}
+                            {{/unless}}
+                        {{/if}}
+                        <div class="widget hidden-xs hidden-sm">
+                            {{#if otherCourses}}
+                                <h4>{{i18n 'courses.otherCoursesLabel'}}</h4>
+                                {{#each otherCourses}}
+                                    <div class="post-thumbnail">
+                                        <a href="/course/{{_id}}">
+                                            {{> courseViewImageWidget course=.}}
+                                            <div class="caption text-center">{{title}}</div>
+                                        </a>
+                                    </div>
+                                {{/each}}
+                            {{/if}}
+                        </div>
+                    </div>
+                </aside>
+                <div class="col-xs-12 col-sm-12 col-md-8">
+                    <div class="post container-fluid ptl pbl">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{> courseViewImage}}
+                            </div>
+                            <div class="col-sm-6">
+                                <h2>{{title}}</h2>
+                                {{#if startsIn startDate 'days'}}
+                                    <span>{{i18n 'courses.dateStartsInLabel'}} {{startsIn startDate 'days'}} {{i18n 'courses.dateDaysLabel'}}</span>
+                                {{else}}
+                                    <span>{{i18n 'courses.startedLabel'}}</span>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="row mtl">
+                            <div class="col-sm-12">
+                                <div>
+                                    <span><strong>{{i18n 'courses.topicLabel'}}:</strong> {{topic}}</span>
+                                </div>
+                                <div>
+                                    <span><strong>{{i18n 'courses.priceLabel'}}:</strong> {{price}} GBP</span>
+                                </div>
+                                <div>
+                                    <span><strong>{{i18n 'courses.ageRangeLabel'}}:</strong> {{age.min}}+</span>
+                                </div>
+                                <div>
+                                    <span><strong>{{i18n 'courses.certificationTypeLabel'}}:</strong> {{certification}}</span>
+                                </div>
+                                <div>
+                                    <span><strong>{{i18n 'community.viewTitle'}}:</strong> <a href="{{getCommunityUrl _id}}"><u>{{getCommunityTitleForCourseId _id}}</u></a></span>
+                                </div>
+                                <div>
+                                    <span><strong>{{i18n 'courses.startDateLabel'}}:</strong> {{formatdate startDate 'DD-MM-YYYY'}}</span>
+                                </div>
+                                <div>
+                                    <span><strong>{{i18n 'courses.endDateLabel'}}:</strong> {{formatdate endDate 'DD-MM-YYYY'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mtl">
+                            <div class="col-sm-12">
+                                <div class="course-description">{{{description}}}</div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row mtl">
+                            <div class="col-sm-12">
+                                <div class="course-tasks">
+                                    <h2>{{i18n 'tasks.listInCourseTitle'}}:</h2>
+                                    <ul>
+                                        {{#each courseTasks}}
+                                            <li>
+                                                <strong>{{i18n 'tasks.titleLabel'}}:</strong> {{title}} | <strong>{{i18n 'tasks.typeLabel'}}:</strong> {{type}} | <strong>{{i18n 'tasks.deadlineLabel'}}:</strong> {{formatDate deadline 'll'}}
+                                                {{#if isCourseCommunityAdmin ../../course.community_id}}
+                                                <a href="/course/{{course}}/tasks/edit/{{_id}}"><i class="fa fa-pencil-square-o"></i></a>
+                                                <a href="#" class="js-delete-task" data-taskid="{{_id}}"><i class="fa fa-trash"></i></a>
+                                                {{/if}}
+                                            </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {{!--}}
+                        {{#if currentUser}} <!-- for now, don't know how it is supposed to work -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="comments">
+                                        <hr>
+                                        <h2>{{i18n 'comments.titleLabel'}}</h2>
+                                        <div class="comments-list">
+                                            {{> commentsList docId=_id}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/if}}
+                        {{!--}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/with}}
+</template>

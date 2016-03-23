@@ -1,0 +1,74 @@
+<template name="commentsList">
+    <div id="comments">
+        {{#if showAllLink}}
+            <a class="js-show-all btn btn-link">
+                {{i18n 'comments.showAllLabel'}}
+            </a>
+        {{/if}}
+        {{#if getComments}}
+            <ol>
+                {{#each getComments}}
+                    {{> uniDynamic 'uniCommentsListItem'}}
+                {{/each}}
+            </ol>
+        {{/if}}
+        {{> commentsListForm}}
+    </div>
+</template>
+
+<template name="commentsListItem">
+    {{#with getAuthor}}
+        <li>
+            <div class="avatar">
+                {{> commentsAuthorAvatar}}
+            </div>
+            <div class="comment_right clearfix">
+                <div class="comment_info">
+                    {{#if canEdit}}
+                        {{#unless isEditMode}}
+                            <a href="#" class="js-delete-comment pull-right" title="Are you sure?"><span class="glyphicon glyphicon-remove"></span></a>
+                            <a href="#" class="js-edit-form pull-right" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a>
+                        {{/unless}}
+                    {{/if}}
+                    {{i18n 'comments.postedByLabel'}} <a href="{{pathFor 'uniProfile'}}">{{getName}}</a> <span>|</span> {{formatDate ../createdAt 'll'}}
+                </div>
+                <p class="comment-text">
+                    {{#if isEditMode}}
+                            {{#if canEdit}}
+                                {{> commentEditForm}}
+                            {{/if}}
+                        {{else}}
+                            {{{../text}}}
+                    {{/if}}
+
+                </p>
+            </div>
+        </li>
+    {{/with}}
+</template>
+
+<template name="commentEditForm">
+    <textarea name="comment-text" class="form-control">{{{../text}}}</textarea>
+    <button class="lc-btn pull-right js-edit-comment">Save</button>
+</template>
+
+<template name="commentsAuthorAvatar">
+    {{#each authorAvatar}}
+        <a href="{{pathFor 'uniProfile' _id=../_id}}">
+            <img src="{{url store='thumbs'}}" class="comments-list-avatar" alt="">
+        </a>
+    {{/each}}
+</template>
+
+<template name="commentsListForm">
+    {{#if currentUser}}
+        <textarea class="js-comment-text form-control" rows="1" placeholder="{{i18n 'comments.saveOnEnterLabel'}}"></textarea>
+        <div class="input-group-btn">
+            <span class="lc-btn pull-right js-send-comment-form">
+                {{i18n 'common.submit'}}
+            </span>
+        </div>
+        {{else}}
+        {{> requiredLogin}}
+    {{/if}}
+</template>

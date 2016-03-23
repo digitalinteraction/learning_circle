@@ -1,0 +1,187 @@
+<template name="home">
+    <section class="home__background">
+        {{> homeHeader}}
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center home__text-block">
+                    <img src="/img/logoHome.png" alt="Learning Circle">
+
+                    <p class="lead">
+                        Learn, engage and create change <br/>
+                        with our online courses.
+                    </p>
+
+                    <p>
+                        <span class="lc-btn-big js-slide-init">How it works</span>
+                    </p>
+
+                    <div class="about-us-links">
+                        <a href="/page/about">About Us</a> | <a href="/page/faq">FAQ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="home__divider js-slide-target">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center home-shortcut-nav-head">
+                    <div class="home-shortcut-nav-head-top">How it works</div>
+                    <div class="home-shortcut-nav-head-bottom">Learning Circle explained in few simple steps</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 text-center">
+                    <div class="home-shortcut-nav-outer">
+                        <div class="home-shortcut-nav-inner">
+                            <a href="{{pathFor 'coursesListing'}}">
+                                <div class="home-shortcut-nav-inner-top home-shortcut-nav-acadimac">Take a class</div>
+                            </a>
+                            <a href="{{pathFor 'coursesListing'}}">
+                                <img class="home-shortcut-nav-inner-img" src="/img/acadimac.png" alt="Take a class">
+                            </a>
+                            <div class="home-shortcut-nav-inner-bottom">Learn from our experts,<br> mentors and classmates.</div>
+                            <div class="home-counts">
+                                Learners: <br><span class="js-impact-learners">{{getLearners}}</span>
+                            </div>
+                        </div>
+                        <div class="home-shortcut-nav-inner">
+                            <a href="{{pathFor 'blogListing'}}">
+                                <div class="home-shortcut-nav-inner-top home-shortcut-nav-chat-bubble">Share what you learn</div>
+                            </a>
+                            <a href="{{pathFor 'blogListing'}}">
+                                <img class="home-shortcut-nav-inner-img" src="/img/chat_bubble.png" alt="Share what you learn">
+                            </a>
+                            <div class="home-shortcut-nav-inner-bottom">Share what you have learnt<br>with others on our platform.</div>
+                            <div class="home-counts">
+                                Posts: <br><span class="js-impact-posts">{{getPosts}}</span>
+                            </div>
+                        </div>
+                        <div class="home-shortcut-nav-inner">
+                            <a href="{{pathFor 'projectListing'}}">
+                                <div class="home-shortcut-nav-inner-top home-shortcut-nav-rocket">Make an impact</div>
+                            </a>
+                            <a href="{{pathFor 'projectListing'}}">
+                                <img class="home-shortcut-nav-inner-img" src="/img/rocket.png" alt="Make an impact">
+                            </a>
+                            <div class="home-shortcut-nav-inner-bottom">Apply what you have learnt<br>in collaborative projects<br>with your classmates.</div>
+                            <div class="home-counts">
+                                Projects: <br><span class="js-impact-projects">{{getProjects}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="main_content">
+        <div class="container">
+            {{> homeContent}}
+        </div>
+    </section>
+</template>
+
+<template name="homeHeader">
+    <div class="homepage-menu-container {{#if isHomepageMenuOpen}}opened{{/if}} hidden-xs">
+        <div class="close-menu js-close-homepage-menu">
+            <i class="fa fa-times"></i>
+        </div>
+        <ul>
+            <li><a href="{{pathFor 'blogListing'}}">Content</a></li>
+            <li><a href="{{pathFor 'coursesListing'}}">Courses</a></li>
+            <li><a href="{{pathFor 'communityListing'}}">Communities</a></li>
+            <li><a href="/page/about">About Us</a></li>
+            <li><a href="/page/faq">FAQ</a></li>
+        </ul>
+    </div>
+    <div class="container home__nav hidden-xs">
+        <div class="row">
+            <div class="col-xs-12 homepage-menu-bars">
+                <div class="text-right">
+                    <i class="fa fa-bars js-open-homepage-menu {{#if isHomepageMenuOpen}}invisible{{/if}} pull-right"></i>
+                    {{> lcLoginButtons}}
+                    {{#with getLoggedIn}}
+                        {{> loggedInUserDropdownMenu}}
+                        {{> coursesDropdownMenu}}
+                        {{> chatDropdownMenu}}
+                    {{/with}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="homeContent">
+
+    {{> homepageCourses}}
+
+    {{> homepageBlogs}}
+
+    {{> homepageProjects}}
+
+</template>
+
+<template name="homepageCourses">
+    {{#if homepageCoursesData.count}}
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="shortcut-head">Courses</div>
+                <div class="shortcut-sub first">Learn from our experts, mentors and classmates.</div>
+            </div>
+            <div class="col-sm-12 col-md-2"></div>
+            {{#each homepageCoursesData}}
+                <div class="col-sm-6 col-md-4">{{> courseListingItem}}</div>
+            {{/each}}
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <a href="{{pathFor 'coursesListing'}}" class="lc-btn-outline-big">See more courses</a>
+            </div>
+        </div>
+        <hr style="margin-bottom: 50px; margin-top: 30px;">
+    {{/if}}
+</template>
+
+<template name="homepageBlogs">
+    {{#if posts.count}}
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="shortcut-head">Blog</div>
+                <div class="shortcut-sub">Share what you have learnt.</div>
+            </div>
+            {{#each posts}}
+                <div class="col-md-4 col-sm-6">
+                    {{> blogListingItem}}
+                </div>
+            {{/each}}
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <a href="{{pathFor 'blogListing'}}" class="lc-btn-outline-big">See all articles</a>
+            </div>
+        </div>
+        <hr style="margin-bottom: 50px; margin-top: 30px;">
+    {{/if}}
+</template>
+
+<template name="homepageProjects">
+    {{#if project.count}}
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="shortcut-head">Projects</div>
+                <div class="shortcut-sub">Apply what you have learnt.</div>
+            </div>
+            {{#each project}}
+                <div class="col-md-4 col-sm-6">
+                    {{> projectListingItem}}
+                </div>
+            {{/each}}
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <a href="{{pathFor 'projectListing'}}" class="lc-btn-outline-big">See all projects</a>
+            </div>
+        </div>
+        <hr style="margin-bottom: 50px; margin-top: 30px;">
+    {{/if}}
+</template>

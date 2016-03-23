@@ -1,0 +1,42 @@
+<template name="emailTemplateView">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{getTriggerTitle}}</h3>
+                </div>
+                <div class="panel-body">
+                    {{#with getDoc}}
+                        {{#uniEntity doc=. editMode=true}}
+                            {{> uniComponent name="subject"}}
+                            {{> uniComponent name="template"}}
+
+                            <h4>{{i18n 'emails.availableFields'}}</h4>
+                            <ul>
+                                {{#each getTriggerFields ../../triggerId}}
+                                    <li><strong>&#123;&#123;{{field}}&#125;&#125;</strong> - {{description}}</li>
+                                    {{else}}
+                                    <li>{{i18n 'emails.noFields'}}</li>
+                                {{/each}}
+                            </ul>
+
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-primary">
+                                    {{i18n 'common.save'}}
+                                </button>
+                            </div>
+                        {{/uniEntity}}
+                    {{else}}
+                        <p>{{i18n 'emails.usingDefaults'}}</p>
+
+                        <p>
+                            <button class="btn btn-primary js-create-template">
+                                {{i18n 'emails.createTemplate'}}
+                            </button>
+                        </p>
+                    {{/with}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

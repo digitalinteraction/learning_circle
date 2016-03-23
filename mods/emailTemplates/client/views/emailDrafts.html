@@ -1,0 +1,94 @@
+<template name="emailDrafts">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{i18n 'emails.tabs.mail_all_students'}}</h3>
+                </div>
+                <div class="panel-body">
+                    <span class="btn btn-default {{#unless getSelectedDraftId}}active{{/unless}}"
+                          data-action="select">
+                        {{i18n 'emails.drafts.new'}}
+                    </span>
+
+                    {{#each getDrafts}}
+                        <span class="btn btn-default {{#if isSelectedDraft _id}}active{{/if}}"
+                              data-action="select" data-id="{{_id}}">
+                            {{subject}} <span class="badge" data-action="remove">x</span>
+                        </span>
+                    {{/each}}
+                </div>
+                <div class="panel-body">
+                    {{#each getDrafts}}
+                        <div class="{{#unless isSelectedDraft _id}}hidden{{/unless}}">
+                            {{#uniEntity doc=this editMode=true}}
+                                {{> uniComponent name="subject"}}
+                                {{> uniComponent name="content"}}
+
+                                <button class="lc-btn-outline" type="submit">{{i18n 'emails.drafts.update'}}</button>
+
+                                {{> _emailDraftsSendButton}}
+                            {{/uniEntity}}
+                        </div>
+                    {{/each}}
+
+                    <div class="{{#if getSelectedDraftId}}hidden{{/if}}">
+                        {{#uniEntity type="insert" entity=UniCMSEntity.emailDrafts}}
+                            {{> uniComponent name="subject"}}
+                            {{> uniComponent name="content"}}
+                            {{> uniComponent name="courseId" value=courseId}}
+
+                            <button class="lc-btn-outline" type="submit">{{i18n 'emails.drafts.save'}}</button>
+
+                            {{> _emailDraftsSendButton}}
+                        {{/uniEntity}}
+                    </div>
+
+                    {{#with getMessage}}
+                        <div class="alert alert-{{type}}">{{msg}}</div>
+                    {{/with}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="_emailDraftsSendButton">
+
+    <button class="lc-btn-outline" type="reset">{{i18n 'emails.drafts.reset'}}</button>
+    <span class="lc-btn-outline"
+          data-original-title="{{areYouSureTestQuestion}}"
+          data-action="sendTestEmail">{{i18n 'emails.drafts.sendTestEmail'}}</span>
+
+    <span class="form-group pull-right">
+        <label>{{i18n 'emails.drafts.target'}}:</label>
+
+        <label class="checkbox-inline">
+            <input type="checkbox"
+                   name="target"
+                   value="course_student"/>
+            {{i18n 'emails.drafts.targets.students'}}
+        </label>
+
+        <label class="checkbox-inline">
+            <input type="checkbox"
+                   name="target"
+                   value="course_mentor"/>
+            {{i18n 'emails.drafts.targets.mentors'}}
+        </label>
+
+        <label class="checkbox-inline">
+            <input type="checkbox"
+                   name="target"
+                   value="course_student-chair"/>
+            {{i18n 'emails.drafts.targets.student_chairs'}}
+        </label>
+
+        <button class="lc-btn"
+                data-placement="bottom"
+                data-original-title="{{areYouSureQuestion}}"
+                data-action="send">
+            {{i18n 'emails.tabs.mail_all_students'}}
+        </button>
+    </span>
+</template>

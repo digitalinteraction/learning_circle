@@ -1,0 +1,131 @@
+<template name="consoleViewTasksTab">
+    <div class="tasks-tab" id="tasks">
+        {{#if groupsExists}}
+        <h3>
+            Tasks progress
+            <small><a href="{{pathFor 'tasksAdd' courseId=currentCourseContextId}}" class="pull-right lc-btn">{{i18n 'tasks.addLabel'}}</a></small>
+            <select class="console-tasks-week-selector js-switch-week pull-right mll mts">
+                <option value="">Choose week...</option>
+                {{> consoleViewWeeksInCourse}}
+            </select>
+            <select class="js-choose-group console-tasks-group-selector pull-right mll mts">
+                {{#each getAllGroups}}
+                    <option value="{{_id}}">
+                        {{title}} - {{calcTzSessionsTime sessionDay sessionHour sessionTimezone}}
+                    </option>
+                {{/each}}
+            </select>
+        </h3>
+        <div class="row">
+            <div class="col-sm-12 panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{getChoosenGroupLabel}}</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="console-tasks-table table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                {{#each getCourseTasks}}
+                                    <th class="pls">{{title}}</th>
+                                {{/each}}
+                            </tr>
+                            <tr>
+                                <th></th>
+                                {{#each getCourseTasks}}
+                                    <th>
+                                        <table class="subtable">
+                                            <tr>
+                                                <td class="pas pln title-label">Title</td>
+                                                <td class="green pas" title="{{i18n 'common.approve'}}"><i class="fa fa-check"></i></td>
+                                                <td class="red pas" title="{{i18n 'common.reject'}}"><i class="fa fa-times"></i></td>
+                                            </tr>
+                                        </table>
+                                    </th>
+                                {{/each}}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each getAllUsersInGroup.students}}
+                                {{> consoleViewTasksTableRow}}
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {{else}}
+            <div class="row">
+                <div class="col-sm-12 ptl">
+                    <strong>{{i18n 'groups.createGroupsMsg'}}</strong>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</template>
+
+<template name="consoleViewWeeksInCourse">
+    {{#each consoleViewStudentTabs}}
+        <option value="{{start}}|{{end}}">{{i18n 'common.week'}} {{weekIndex}}</option>
+    {{/each}}
+</template>
+
+<template name="consoleViewTasksTableRow">
+    <tr>
+        <td>{{name}} {{surname}}</td>
+        {{#each getCourseTasks}}
+            {{> consoleViewTasksTableCell}}
+        {{/each}}
+    </tr>
+</template>
+
+<template name="consoleViewTasksTableCell">
+    <td data-label="{{title}}">
+        {{#if getTaskEntityData.title}}
+            {{#unless isTaskDraft _id type ../_id}}
+                <table class="subtable">
+                    <td class="title-label">
+                        <div class="pull-left mrm">
+                            {{#if getTaskEntityData.url}}
+                                <a href="{{getTaskEntityData.url}}" class="js-new-tab">{{getTaskEntityData.title}}</a>
+                            {{else}}
+                                {{getTaskEntityData.title}}
+                            {{/if}}
+                        </div>
+                    </td>
+                    {{#if or isTaskRejected isTaskApproved}}
+                        <td class="green text-center" title="{{i18n 'common.approve'}}">
+                            <div class="task-approval js-task-approve">
+                                <label for="">
+                                    <input checked={{isTaskApproved}} name="task-state_{{getTaskEntityData._id}}" type="radio">
+                                </label>
+                            </div>
+                        </td>
+                        <td class="red text-center" title="{{i18n 'common.unapprove'}}">
+                            <div class="task-approval js-task-reject">
+                                <label for="">
+                                    <input checked={{isTaskRejected}} name="task-state_{{getTaskEntityData._id}}" type="radio">
+                                </label>
+                            </div>
+                        </td>
+                    {{else}}
+                        <td class="green text-center" title="{{i18n 'common.approve'}}">
+                            <div class="task-approval js-task-approve">
+                                <label for="">
+                                    <input name="task-state_{{getTaskEntityData._id}}" type="radio">
+                                </label>
+                            </div>
+                        </td>
+                        <td class="red text-center" title="{{i18n 'common.unapprove'}}">
+                            <div class="task-approval js-task-reject">
+                                <label for="">
+                                    <input name="task-state_{{getTaskEntityData._id}}" type="radio">
+                                </label>
+                            </div>
+                        </td>
+                    {{/if}}
+                </table>
+            {{/unless}}
+        {{/if}}
+    </td>
+</template>

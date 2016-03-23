@@ -1,0 +1,157 @@
+<template name="blogViewImageLoading">
+    <div style="height: 299px"></div>
+</template>
+
+<template name="blogView">
+    <div class="container">
+        <div class="row">
+            <aside class="col-xs-12 col-md-4 pull-right">
+                <div class="box_style_1">
+                    {{#if isReady}}
+                        {{#if post.canEdit}}
+                            <div class="widget">
+                                {{#if eq post.status 'archived'}}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{i18n 'posts.archived'}}
+                                    </div>
+                                    {{#if post.canArchive}}
+                                        <span class="lc-btn-block-big js-post-set-status" data-status="draft" data-placement="top"
+                                              title="Are you sure you want to unarchive this post?">{{i18n 'common.unarchive'}}</span>
+                                    {{/if}}
+                                {{else}}
+                                    {{#unless post.editMode}}
+                                        <span class="lc-btn-block-big js-post-toggle-mode">{{i18n 'common.edit'}}</span>
+                                    {{/unless}}
+                                    {{#if post.canArchive}}
+                                        <span class="lc-btn-block-big js-post-set-status" data-status="archived" data-placement="top"
+                                              title="Are you sure you want to archive this post?">{{i18n 'common.archive'}}</span>
+                                    {{/if}}
+                                    {{#if post.canFeatured}}
+                                            <span class="lc-btn-block-big js-post-toggle-public">{{#if post.public}}{{i18n 'common.revertToNonpublic'}}{{else}}{{i18n 'common.makePublic'}}{{/if}}</span>
+                                    {{/if}}
+                                {{/if}}
+                            </div>
+                        {{else}}
+                            <span class="lc-btn-block-dark js-post-report"
+                                  data-status="reported">{{i18n 'common.report'}}</span>
+                            {{#if post.canFeatured}}
+                            <div class="widget">
+                                <span class="lc-btn-block-big js-post-toggle-public">{{#if post.public}}{{i18n 'common.revertToNonpublic'}}{{else}}{{i18n 'common.makePublic'}}{{/if}}</span>
+                            </div>
+                            {{/if}}
+                        {{/if}}
+
+                        {{#if eq post.status 'published'}}
+                            <div class="widget">
+                                <h4>Share</h4>
+
+                                <div class="text-center">
+                                    <ul id="follow_us">
+                                        <li>
+                                            <a href="#" class="js-share" data-type="google"><i class="icon-google"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="js-share" data-type="facebook"><i class="icon-facebook"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="js-share" data-type="twitter"><i class="icon-twitter"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="js-share" data-type="pinterest"><i
+                                                    class="icon-pinterest"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        {{/if}}
+                    {{/if}}
+                </div>
+                <div class="box_style_1 hidden-xs hidden-sm">
+
+                    {{> blogMostPopular}}
+
+                </div>
+            </aside>
+            <div class="col-xs-12 col-md-8">
+                <div class="post">
+                    {{#uniEntity doc=post}}
+                        {{#if doc.editMode}}<h2>Post title</h2>{{/if}}
+                        <h2><span class="fullview-like-button pull-right">{{> likeButtons collection='Blog' doc=post}}</span>{{> uniComponent name='title'}}</h2>
+
+                        {{#if doc.editMode}}<h2>Cover image</h2>{{/if}}
+                        {{#uniComponent name='image' loadingTemplate='blogViewImageLoading'}}
+                            <img src="{{url store='bigCover'}}" alt=""
+                                 class="img-responsive js-share-media unicms__files--replace-on-click js-replace-on-click">
+                        {{else}}
+                            <img src="/img/placeholder750x300.jpg" alt=""
+                                 class="img-responsive js-share-media unicms__files--replace-on-click js-replace-on-click">
+                        {{/uniComponent}}
+
+                        {{#getUser doc.ownerId}}
+                            <div class="blog-item-createdby">
+                                {{#if avatar}}
+                                    <a class="blog-item-avatar-link" href="{{pathFor 'uniProfile' _id=user._id}}">
+                                        <img class="blog-item-avatar" alt="{{user.name}}"
+                                             src="{{avatar.url store='thumbs'}}">
+                                    </a>
+                                {{/if}}
+                                <span class="blog-item-author">
+                                    by <a href="{{pathFor 'uniProfile' _id=user._id}}">{{user.name}}</a> on {{formatDate ../doc.createdAt 'MMMM Do YYYY'}}
+                                </span>
+                            </div>
+                        {{/getUser}}
+
+                        <!-- <blockquote><p>{{> uniComponent name='brief'}}</p></blockquote> -->
+
+                        {{#if doc.editMode}}<h2>Content</h2>{{/if}}
+                        <p>{{> uniComponent name='content'}}</p>
+
+                        {{#if doc.editMode}}
+                            <div class="row" style="margin: 5px;">
+                                {{#unless blogIsSubmitting}}
+                                    <div class="col-xs-6 col-md-6">
+                                        <span class="lc-btn-light js-post-toggle-mode">{{i18n 'common.cancel'}}</span>
+                                        <span class="lc-btn-light js-post-delete" data-placement="top"
+                                              title="Are you sure you want to delete this post?">{{i18n 'common.delete'}}</span>
+                                    </div>
+                                    {{#if eq doc.status 'published'}}
+                                        <div class="col-xs-6 col-md-6">
+                                            <span class="lc-btn pull-right js-post-save">{{i18n 'common.update'}}</span>
+                                            <span class="lc-btn-light pull-right js-post-set-status"
+                                                  data-status="draft">{{i18n 'common.unpublish'}}</span>
+                                        </div>
+                                    {{else}}
+                                        <div class="col-xs-6 col-md-6">
+                                            <span class="lc-btn pull-right js-post-set-status"
+                                                  data-status="published">{{i18n 'common.publish'}}</span>
+                                            <span class="lc-btn-light pull-right js-post-save">{{i18n 'common.saveAsDraft'}}</span>
+                                        </div>
+                                    {{/if}}
+                                {{else}}
+                                    <div class="col-sm-12">
+                                        {{> UniRiverPaginationSpinner}}
+                                    </div>
+                                {{/unless}}
+                            </div>
+                        {{/if}}
+
+                        <div class="comments">
+                            <hr>
+                            <h2>Comments</h2>
+
+                            <div class="comments-list">
+                                {{> commentsList docId=doc._id docCollection='Blog'}}
+                            </div>
+                        </div>
+                    {{else}}
+                        {{#if isReady}}
+                            <h4>Post not found</h4>
+                        {{else}}
+                            {{> UniRiverPaginationSpinner}}
+                        {{/if}}
+                    {{/uniEntity}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,84 @@
+<template name="static.contact">
+
+    {{#contentFor "header"}}
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h1>Contact us</h1>
+            </div>
+        </div>
+    {{/contentFor}}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Follow us</h3>
+
+                <p>
+                    See our latest news on our social media channels:
+                </p>
+                <ul id="follow_us_contacts">
+                    <li><a href="https://www.facebook.com/onlineuwc"><i class="icon-facebook"></i>/onlineuwc</a></li>
+                    <li><a href="https://twitter.com/onlineuwc"><i class="icon-twitter"></i>@onlineuwc</a></li>
+                    <li><a href="https://plus.google.com/+OnlineuwcOrg/posts"><i
+                            class="icon-google"></i>+OnlineuwcOrg</a></li>
+                </ul>
+                <hr>
+                <h3>Apply for a course</h3>
+
+                <p>
+                    If you would like to apply for a course, please go to the <a href="{{pathFor 'coursesListing'}}">course</a>
+                    page.</p>
+                <a href="{{pathFor 'coursesListing'}}" class="lc-btn-outline">Apply</a>
+            </div>
+            <div class="col-md-8">
+                <div class="box_style_2">
+                    <span class="tape"></span>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Contact us</h3>
+
+                            <p>
+                                Get in touch:
+                            </p>
+                        </div>
+                    </div>
+                    <div id="message-contact"></div>
+                    <form id="contactform">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control style_2" id="name_contact" name="name"
+                                           placeholder="Your name" required="required">
+                                    <span class="input-icon"><i class="icon-user"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <input type="email" id="email_contact" name="email" class="form-control style_2"
+                                           placeholder="Your email" required="required">
+                                    <span class="input-icon"><i class="icon-email"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea rows="5" id="message_contact" name="message" class="form-control"
+                                              placeholder="Write your message" style="height:200px;"
+                                              required="required"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="submit" value="Submit" class="lc-btn" id="submit-contact">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

@@ -1,0 +1,168 @@
+<template name="consoleView">
+    <div class="container">
+        {{!-- #if isCourseStudentOrCourseMentorOrAdmin}}
+            <div class="console-floating-menu js-console-floating-menu">
+                <ul>
+                    <li><a href="#" class="js-go-to-top">{{i18n 'common.dashboard'}}</a></li>
+                    <li><a href="#" class="js-go-to-today">{{i18n 'common.activity'}}</a></li>
+                </ul>
+            </div>
+        {{/if --}}
+        <aside class="col-xs-12 col-sm-4 col-md-3 pull-right">
+            <div class="box_style_1 hidden-xs">
+                <div class="widget">
+                    {{> circleConceptFilterDesktop collectionName='Activities'}}
+                </div>
+            </div>
+            <div class="visible-xs">
+                {{> circleConceptFilterDesktop collectionName='Activities'}}
+            </div>
+        </aside>
+        <div class="col-sm-8 col-md-9">
+            {{#if isUserMembershipPending}}
+            <div class="row">
+                <div class="col-xs-12">
+                        {{#if mentorFormSuccess}}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="confirmation-waiting-box">
+                                        {{{i18n 'courses.applicationConsiderationMsg' '<a href="/blog">blogs</a>'}}}
+                                    </div>
+                                </div>
+                            </div>
+                        {{else}}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="confirmation-waiting-box">
+                                    {{{i18n 'courses.applicationConsiderationMsg' '<a href="/blog">blogs</a>'}}}
+                                    </div>
+                                </div>
+                            </div>
+                        {{/if}}
+                </div>
+            </div>
+            {{/if}}
+            {{#if isCourseStudentOrCourseMentorOrAdmin}}
+                {{> consoleViewStudentRiver}}
+            {{/if}}
+        </div>
+    </div>
+</template>
+
+<template name="consoleViewStudentWeekPaneView">
+    <div class="active">
+
+        <!-- lectures TODO: refactor this -->
+        {{#each getCourseLecturesSchedules}}
+            {{> consoleViewLectureScheduleItem}}
+        {{/each}}
+        {{#each getCourseSchedules}}
+            {{> consoleViewScheduleItem}}
+        {{/each}}
+        {{#each getCourseTasks 'studentView'}}
+            {{> consoleViewStudentTaskItem}}
+        {{/each}}
+    </div>
+</template>
+
+<template name="consoleViewStudentNavTabs">
+    <ul class="sf-menu text-center">
+        <li>
+            <a href="{{pathFor 'consoleView'}}" class="{{#if isActiveRoute 'consoleView'}}active{{/if}}">
+                <i class="fa fa-dashcube"></i>
+                {{i18n 'classView.dashboard'}}
+            </a>
+        </li>
+        <li>
+            <a href="{{pathFor 'schedulesView'}}" class="{{#if isActiveRoute 'schedulesView'}}active{{/if}}">
+                <i class="fa fa-lightbulb-o"></i>
+                {{i18n 'classView.schedules'}}
+            </a>
+        </li>
+        <li>
+            <a href="{{pathFor 'groupsView'}}" class="{{#if isActiveRoute 'groupsView'}}active{{/if}}">
+                <i class="fa fa-users"></i>
+                {{i18n 'classView.group'}}
+            </a>
+        </li>
+    </ul>
+</template>
+
+<template name="consoleViewNavFilters">
+    <div class="consoleViewNavFiltersWrapper">
+        <h4 class="consoleH4Filter">Filter</h4>
+        <div class="nav-filter-btns">
+            <ul class="nav nav-pills">
+                <li>
+                    <a href="#" class="js-toggle-all {{#if allChecked}}active{{/if}}"
+                       title="{{i18n 'common.all'}}">
+                        {{i18n 'common.all'}}
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="js-toggle-tasks {{#unless isConsoleTaskHidden}}active{{/unless}}"
+                       title="{{i18n 'tasks.listTitle'}}">
+                        <i class="fa mts fa-fw fa-tasks"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="js-toggle-schedules {{#unless isConsoleScheduleHidden}}active{{/unless}}"
+                       title="Schedule">
+                        <i class="fa fa-fw fa-calendar"></i>
+                    </a>
+                </li>
+                {{!--
+                <li>
+                    <a href="#" class="js-toggle-blogs {{#unless isConsoleBlogHidden}}active{{/unless}}" title="Blog">
+                        <i class="fa mts fa-fw fa-pencil-square-o"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="js-toggle-projects {{#unless isConsoleProjectHidden}}active{{/unless}}">
+                        <i class="fa fa-fw fa-share-alt" title="Projects"></i>
+                    </a>
+                </li>
+                !--}}
+            </ul>
+        </div>
+
+        <br />
+
+        <h4 class="consoleH4Weeks">Weeks</h4>
+        <ul class="nav nav-pills nav-stacked">
+            <li>
+                <a href="#" class="js-switch-week" data-start-date="{{courseTimes.start}}"
+                   data-end-date="{{courseTimes.end}}">{{i18n 'common.all'}}</a>
+            </li>
+            {{#each consoleViewStudentTabs}}
+                <li>
+                    <a href="#" class="js-switch-week {{#if active}}active{{/if}}" data-start-date="{{start}}"
+                       data-end-date="{{end}}">
+                        {{i18n 'common.week'}} {{weekIndex}}
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+
+        <h4></h4>
+
+        <div class="visible-xs js-search-filter-toggle">
+            <a href="#" class="btn btn-primary">Apply</a>
+        </div>
+    </div>
+
+    <div class="visible-xs footer-filter-container js-search-filter-toggle">
+        <i class="fa fa-filter"></i>
+    </div>
+</template>
+
+<template name="consoleViewHeader">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h1>{{i18n 'classView.classLabel'}}</h1>
+        </div>
+    </div>
+</template>
+
+
+

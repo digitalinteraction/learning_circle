@@ -1,0 +1,17 @@
+<template name="newsletterSubscriptionForm">
+    <div class="well well-sm">
+        <h4>{{i18n 'emails.newsletter.formTitle'}}</h4>
+        {{#autoForm schema=getSchema type="method" meteormethod="subscribeToNewsletter"}}
+            <div class="row">
+                <div class="col-md-8">
+                    {{> afFieldInput label=false name='scheduler' type="select" firstOption="None" value=getNewsletterSubscription}}
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="lc-btn-block-dark js-submit">
+                        {{i18n 'common.save'}}
+                    </button>
+                </div>
+            </div>
+        {{/autoForm}}
+    </div>
+</template>

@@ -1,0 +1,4 @@
+packages/**/*
+mods/main/client/compatibility/*
+mods/main/client/lib/*
+settings/server/fixtures/courses-users.js

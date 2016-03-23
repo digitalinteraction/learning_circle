@@ -1,0 +1,7 @@
+<template name="autocompleteUsers">
+    <div class="js-autocompleteUsers autocompleteUsers {{#unless getUsers.length}}hidden{{/unless}}">
+        {{#each getUsers}}
+            <button data-id="{{_id}}">{{fullname}}</button>
+        {{/each}}
+    </div>
+</template>

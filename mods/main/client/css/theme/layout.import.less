@@ -1,0 +1,152 @@
+.dropdown-ellipsis {
+    display: inline-block;
+    overflow-x: hidden;
+    max-width: 95px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.caret-for-ellipsis {
+    float: right;
+    margin-top: 8px;
+}
+
+.layout-main-header {
+    &.fixed {
+        position: fixed;
+        width: 100%;
+        z-index: 9999;
+    }
+}
+
+body {
+    overflow-y: scroll;
+}
+
+// real responsive tables
+
+@media screen and (max-width: 1024px) {
+
+    table.responsive {
+        border: 0;
+
+        thead {
+            display: none;
+        }
+
+        tr {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        // you need to add data-label to td like:
+        // <td data-label="Payment">Payment #1</td>
+        td {
+            display: block;
+            text-align: right;
+            border: 0;
+            padding-top: 15px !important;
+            padding-bottom: 15px !important;
+            &:before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                margin-top: -8px;
+            }
+        }
+    }
+}
+
+
+// quote revolver
+
+.quote-title {
+    margin: 10px 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+.quote-revolver {
+    color: #c6c6c7;
+    min-height: 110px;
+    .quote-author {
+        margin-top: 12px;
+    }
+}
+
+.js-username-link{
+    background-color: #1ABC9C;
+    font-size: 92%;
+    &:hover{
+        background-color: #19A589 !important;
+    }
+}
+
+.copyrights-text{
+    margin-top: 10px;
+    color: #7e7e7e
+}
+
+.dropdown{
+    img{
+        max-height: 26px;
+        margin-right: 8px !important;
+    }
+}
+
+.seledin-text{
+    color: #30d9a4;
+}
+
+.navbar-icons{
+  font-size: 23px;
+}
+
+.inline-block{
+  display: inline-block;
+  vertical-align: top;
+}
+
+.fb-like{
+  height: 20px;
+  overflow: hidden;
+}
+
+.howto-icon{
+  min-width: 19px;
+  text-align: center;
+  line-height: 1.42857143;
+}
+
+.btn-change-pass,
+.btn-change-email{
+  margin-bottom: 0px !important;
+}
+
+.main-content{
+  &.notificationsListing,
+  &.uniChatInbox{
+    margin-top: 20px !important;
+  }
+}
+
+.unicms__component__content,
+.staticPage .container .col-sm-9,
+.staticPage .container .col-sm-12,
+.confirmation-waiting-box{
+  a{
+    color: #30d9a4 !important;
+    font-weight: 600 !important;
+  }
+}
+
+.popover-content{
+  min-width: 125px;
+}
+
+.required-login-box{
+  .buttons{
+    #register_top,
+    #login_top{
+      float: none !important;
+    }
+  }
+}

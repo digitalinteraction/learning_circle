@@ -1,0 +1,16 @@
+<template name="rescheduleRequestModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{i18n "schedules.rescheduleRequest"}}</h4>
+    </div>
+    <div class="modal-body">
+        {{#autoForm id="rescheduleRequestAutoform" schema=getSchema type="method" meteormethod="sendRescheduleMail"}}
+            {{> afQuickField name="groupId" options=groupOptions firstOption="(Choose a group)"}}
+            {{> afQuickField name="message" rows=10}}
+            {{> afFieldInput type="hidden" name="userId" value=userId}}
+            {{> afFieldInput type="hidden" name="courseId" value=courseId}}
+            <button type="submit" class="btn btn-primary pull-right">{{i18n "common.submit"}}</button>
+        {{/autoForm}}
+        <div class="clearfix"></div>
+    </div>
+</template>

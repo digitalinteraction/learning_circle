@@ -1,0 +1,7 @@
+<template name="getUserProjects">
+    {{#if Template.subscriptionsReady}}
+        {{#each projects}}
+            {{> projectListingItem}}
+        {{/each}}
+    {{/if}}
+</template>

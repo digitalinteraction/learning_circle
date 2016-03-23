@@ -1,0 +1,70 @@
+.lc-btn-common() {
+    border-radius: 5px;
+    text-transform: none;
+}
+
+.lc-btn {
+    &, a& {
+        &:extend(.button_medium all);
+        .lc-btn-common;
+    }
+}
+
+.lc-btn-light {
+    &, a& {
+        &:extend(.button_medium all);
+        .lc-btn-common;
+        background: #eafbf6;
+        color: #333;
+        margin-right: 6px;
+        &:hover {
+            background: #262c2d;
+            color: #fff;
+        }
+    }
+}
+
+.lc-btn-big {
+    &, a& {
+        &:extend(.button_subscribe_green all);
+        .lc-btn-common;
+    }
+}
+
+.lc-btn-outline {
+    &, a& {
+        &:extend(.button_medium_outline all);
+        .lc-btn-common;
+        border-width: 1px;
+    }
+}
+
+.lc-btn-outline-big {
+    &, a& {
+        &:extend(.button_outline all);
+        .lc-btn-common;
+        border-width: 1px;
+    }
+}
+
+.lc-btn-block {
+    &, a& {
+        &:extend(.button_fullwidth-2 all);
+        .lc-btn-common;
+    }
+}
+
+.lc-btn-block-dark {
+    &, a& {
+        &:extend(.button_fullwidth all);
+        .lc-btn-common;
+    }
+}
+
+.lc-btn-block-big {
+    &, a& {
+        &:extend(.button_fullwidth-3 all);
+        .lc-btn-common;
+    }
+}
+

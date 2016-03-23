@@ -1,0 +1,36 @@
+<template name="blogMostPopular">
+    <div class="widget">
+        <h4>Most popular</h4>
+
+        {{#each posts}}
+            {{#uniEntity doc=this editMode=false}}
+                <div class="post-thumbnail">
+                    {{#uniLink route='blogView' data=doc}}
+
+                        {{#uniComponent name='image'}}
+                            <img src="{{url store='smallCover'}}" class="img-responsive fullwidth" alt="">
+                        {{else}}
+                            <img src="/img/placeholder400x160.jpg" alt="" class="img-responsive">
+                        {{/uniComponent}}
+
+                        {{#getUser doc.ownerId}}
+                            <div class="blog-item-createdby">
+                                {{#if avatar}}
+                                    <a class="blog-item-avatar-link" href="{{pathFor 'uniProfile' _id=user._id}}">
+                                        <img class="blog-item-avatar" alt="{{user.name}}"
+                                             src="{{avatar.url store='thumbs'}}">
+                                    </a>
+                                {{/if}}
+                                <span class="blog-item-author">
+                                    by <a href="{{pathFor 'uniProfile' _id=user._id}}">{{user.name}}</a>
+                                </span>
+                            </div>
+                        {{/getUser}}
+
+                        <div class="caption text-center">{{doc.title}}</div>
+                    {{/uniLink}}
+                </div>
+            {{/uniEntity}}
+        {{/each}}
+    </div>
+</template>

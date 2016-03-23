@@ -1,0 +1,119 @@
+<template name="adminManageView">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="tab-content js-tab-panes">
+                    {{#if or isCourseMentorOrAdmin isAdminCommunities}}
+                        {{#if isDashboardTabActive 'attendence'}}
+                            {{> consoleViewAttendenceTab}}
+                        {{/if}}
+                    {{/if}}
+                    {{#if or isCourseMentorOrAdmin isAdminCommunities}}
+                        {{#if isDashboardTabActive 'tasks'}}
+                            {{> consoleViewTasksTab}}
+                        {{/if}}
+                        {{#if isDashboardTabActive 'groups'}}
+                            {{> consoleViewGroupsTab}}
+                        {{/if}}
+                        {{#if isDashboardTabActive 'syllabus'}}
+                            {{> consoleViewSyllabusTab}}
+                        {{/if}}
+                    {{/if}}
+                    {{#if isInRole 'global_admin'}}
+                        {{#if isDashboardTabActive 'applicants'}}
+                            {{> consoleViewApplicantsTab}}
+                        {{/if}}
+                        {{#if isDashboardTabActive 'mentors'}}
+                            {{> consoleViewMentorsTab}}
+                        {{/if}}
+                        {{#if isDashboardTabActive 'global_emails'}}
+                            {{> consoleViewGlobalEmailsTab}}
+                        {{/if}}
+                    {{/if}}
+                    {{#if isAdminCommunities}}
+                        {{#if isDashboardTabActive 'course_emails'}}
+                            {{> consoleViewCourseEmailsTab}}
+                        {{/if}}
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="adminManageViewNavTabs">
+    <div class="row">
+        <ul class="sf-menu text-center">
+            {{#if or isCourseMentorOrAdmin isAdminCommunities}}
+                <li class="col-xs-6">
+                    <a href="#" data-tab-name="attendence"
+                       class="attendance js-switch-tab {{#if isDashboardTabActive 'attendence'}}active{{/if}}">
+                        <i class="fa fa-check-square-o"></i>
+                        {{i18n 'courses.attendanceLabel'}}
+                    </a>
+                </li>
+                <li class="col-xs-6">
+                    <a href="#" data-tab-name="tasks"
+                       class="tasks js-switch-tab {{#if isDashboardTabActive 'tasks'}}active{{/if}}">
+                        <i class="fa fa-tasks"></i>
+                        {{i18n 'tasks.listTitle'}}
+                    </a>
+                </li>
+                <li class="col-xs-6">
+                    <a href="#" data-tab-name="groups"
+                       class="group js-switch-tab {{#if isDashboardTabActive 'groups'}}active{{/if}}">
+                        <i class="fa fa-users"></i>
+                        {{i18n 'courses.groupLabel'}}
+                    </a>
+                </li>
+                <li class="col-xs-6">
+                    <a href="#" data-tab-name="syllabus"
+                       class="syllabus js-switch-tab {{#if isDashboardTabActive 'syllabus'}}active{{/if}}">
+                        <i class="fa fa-circle-o-notch"></i>
+                        {{i18n 'common.overview'}}
+                    </a>
+                </li>
+            {{/if}}
+            {{#if isInRole 'global_admin'}}
+                <li class="col-xs-6">
+                    <a href="#" data-tab-name="applicants"
+                       class="applicants js-switch-tab {{#if isDashboardTabActive 'applicants'}}active{{/if}}">
+                        <i class="fa fa-list-ol"></i>
+                        {{i18n 'courses.applicantsLabel'}}
+                    </a>
+                </li>
+                <li class="col-xs-6">
+                    <a href="#" data-tab-name="mentors"
+                       class="mentors js-switch-tab {{#if isDashboardTabActive 'mentors'}}active{{/if}}">
+                        <i class="fa fa-user-plus"></i>
+                        {{i18n 'courses.mentorsLabel'}}
+                    </a>
+                </li>
+                <li class="col-xs-6">
+                    <a href="#" data-tab-name="global_emails"
+                       class="mentors js-switch-tab {{#if isDashboardTabActive 'global_emails'}}active{{/if}}">
+                        <i class="fa fa-envelope-o"></i>
+                        {{i18n 'emails.tabs.global'}}
+                    </a>
+                </li>
+            {{/if}}
+            {{#if isAdminCommunities}}
+                <li class="col-xs-6">
+                    <a href="#" data-tab-name="course_emails"
+                       class="mentors js-switch-tab {{#if isDashboardTabActive 'course_emails'}}active{{/if}}">
+                        <i class="fa fa-envelope-o"></i>
+                        {{i18n 'emails.tabs.course'}}
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    </div>
+</template>
+
+<template name="adminManageHeader">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h1>{{i18n 'adminManageView.manageLabel'}}</h1>
+        </div>
+    </div>
+</template>

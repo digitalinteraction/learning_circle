@@ -1,0 +1,23 @@
+<template name="circleConceptFilterDesktop">
+    <h4 class="hidden-xs">FILTER BY:</h4>
+    <div class="circle-concept-container {{getActiveCircle}}">
+        <div class="circle-concept-circle public-circle">
+            <div class="circle-concept-circle course-circle">
+                <div class="circle-concept-circle group-circle">
+                    <div class="circle-concept-circle profile-circle">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="circle-concept-filters-label hidden-xs">
+        <span class="{{#if eq getActiveCircle 'profile'}}active{{/if}}">you</span> /
+        <span class="{{#if eq getActiveCircle 'group'}}active{{/if}}">group</span> /
+        <span class="{{#if eq getActiveCircle 'course'}}active{{/if}}">class</span> /
+        <span class="{{#if eq getActiveCircle 'public'}}active{{/if}}">public</span>
+    </div>
+</template>
+
+<template name="circleConceptFilterMobile">
+
+</template>

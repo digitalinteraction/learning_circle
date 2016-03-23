@@ -1,0 +1,23 @@
+.autocompleteUsers{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 250px;
+    border: 1px solid #999;
+    background: white;
+    z-index: 12000;
+}
+
+.autocompleteUsers button{
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 5px;
+}
+
+.autocompleteUsers button:hover{
+    background: #0cbdaa;
+    color:#fff;
+}

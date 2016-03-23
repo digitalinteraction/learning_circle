@@ -1,0 +1,146 @@
+.uni-chat-widget-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 999;
+}
+.notif-count {
+    position: absolute;
+    top: 10px;
+    right: -7px;
+    z-index: 9999;
+    background: #d60000;
+    color: #ffffff;
+    padding: 0px 7px;
+    border-radius: 13px;
+    font-size: 10px;
+
+}
+
+@media screen and (max-width: 600px) {
+    .notif-count {
+        top: 18px;
+        right: -24px;
+    }
+}
+
+// datatable overwrites aldeed:tabular package
+
+.dataTables_wrapper {
+    .row:nth-child(2) {
+        overflow-x: auto; // datatables scrollX does not work
+    }
+    .dataTables_length {
+        height: 100%;
+        label {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        select {
+            line-height: 1;
+        }
+    }
+    .dataTables_filter {
+        width: 100%;
+        label {
+            width: 100%;
+            text-align: right;
+        }
+        input[type=search] {
+            margin-bottom: 0;
+            margin-left: 15px;
+            min-width: 70%;
+        }
+        &:before,
+        &:after {
+            content: " ";
+            display: table;
+        }
+        &:after {
+            clear: both;
+        }
+    }
+}
+
+.uni-chat-dropdown small {
+    width: auto;
+}
+
+ul.sf-menu.sf-menu-restyled {
+    li.active, li.active:hover {
+        background-color: #1c1c1c;
+        a {
+            color: #30d9a4;
+        }
+    }
+    li:hover {
+        a {
+            color: #fff;
+        }
+    }
+}
+
+.main-content {
+    min-height: 400px;
+}
+
+.unicms__component {
+    textarea {
+        margin-bottom: 0;
+    }
+}
+
+.post {
+    blockquote {
+        margin-bottom: 0;
+    }
+}
+
+.uni-join-button-project {
+    .btn {
+        &:extend(.lc-btn-block-big);
+    }
+}
+
+.lc-pseudo-btn-block-dark {
+    &:extend(.lc-btn-block-dark);
+    background: #262c2d;
+    &:hover {
+        cursor: default;
+    }
+}
+
+.lc-btn-block-dark.profile-reported-btn {
+    width: 150px;
+    margin: 5px 20px;
+}
+
+.project-add .control-label,
+.post .control-label,
+.post-thumbnail .control-label,
+.blog-add .control-label {
+    display: none;
+}
+
+.project-add, .post, .post-thumbnail, .blog-add {
+    .form-group {
+        margin: 0;
+        .help-block {
+            margin: 0;
+        }
+    }
+}
+
+.modal {
+    z-index: 9999;
+}
+
+textarea.form-control {
+    height: auto;
+    min-height: 80px;
+}
+
+.box_style_1a {
+    &:extend(.box_style_1);
+    margin: 0;
+}

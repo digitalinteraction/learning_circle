@@ -1,0 +1,97 @@
+<template name="communityListingHeader">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h1>{{i18n 'community.listTitle'}}</h1>
+        </div>
+    </div>
+</template>
+
+<template name="communityListing">
+    <div class="container">
+        <div class="row">
+                <aside class="col-xs-12 col-sm-4 col-md-3 pull-right">
+                    <div class="box_style_1">
+                    {{#if isInRole 'global_admin'}}
+                        <div class="widget">
+                            <a href="{{pathFor 'communityAdd' communityId='test'}}" class="lc-btn-block-big">Add
+                                community</a>
+                        </div>
+                    {{/if}}
+                        <div class="widget">
+                            <h4>{{i18n 'announcements.titleLabel'}}</h4>
+                            <p>
+                                {{i18n 'announcements.description'}}
+                            </p>
+                        </div>
+                    </div>
+                </aside>
+
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row">
+                    {{> headerWithSearch2 index="Communities"}}
+                </div>
+                <div class="row">
+
+                    {{#ifEsInputIsEmpty index="Community"}}
+                        {{#each community}}
+                            <div class="col-md-6">
+                                {{> communityListingItem}}
+                            </div>
+                        {{/each}}
+                    {{/ifEsInputIsEmpty}}
+
+                    {{#ifEsIsSearching index="Community"}}
+                        <div class="text-center">
+                            <div class="spinner">
+                                <div class="double-bounce1"></div>
+                                <div class="double-bounce2"></div>
+                            </div>
+                        </div>
+                    {{else}}
+                        <div class="results-wrapper">
+                            {{#esEach index="Communities"}}
+                                <div class="col-md-6">
+                                    {{> communityListingItem}}
+                                </div>
+                            {{/esEach}}
+                        </div>
+                    {{/ifEsIsSearching}}
+                </div>
+                {{#ifEsHasNoResults index="Community"}}
+                    <hr>
+                    <div>
+                        <div class="no-results">
+                            <h2>{{i18n 'community.searchNoResultsInfo'}}</h2>
+                        </div>
+                    </div>
+                {{/ifEsHasNoResults}}
+                <hr>
+                <div class="text-center">
+                    {{> esLoadMoreButton class="lc-btn-outline-big" content="Load more" index="Community"}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="communityListingItem">
+    <div class="community-item col-item">
+        <div class="photo">
+            <div class="community-item-title">
+                <h4>
+                    <a href="{{pathFor 'communityView' communityId=_id}}">{{title}}</a>
+                </h4>
+            </div>
+            <a href="{{pathFor 'communityView' communityId=_id}}">
+                {{> communityViewImage}}
+            </a>
+        </div>
+        <div class="info">
+            <div class="row">
+                <div class="community_info col-md-12 col-sm-12">
+                    <p class="community-clip-text">{{stripHTMLandTrim description 100 ' ...'}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

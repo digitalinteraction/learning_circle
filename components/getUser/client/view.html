@@ -1,0 +1,9 @@
+<template name="getUser">
+    {{#if Template.subscriptionsReady}}
+        {{#if user}}
+            {{> Template.contentBlock user=user avatar=avatar}}
+        {{else}}
+            {{> Template.elseBlock}}
+        {{/if}}
+    {{/if}}
+</template>

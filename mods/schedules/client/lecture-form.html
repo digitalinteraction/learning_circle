@@ -1,0 +1,29 @@
+<template name="schedulesLectureInsertForm">
+    {{#if isInRole 'global_admin'}}
+        <h2 id='schedules-lecture-form'>​​Schedule form - Add lecture</h2>
+        {{#autoForm collection="Colls.Schedules" id="insertLectureScheduleForm" type="insert"}}
+            {{> afFieldInput name="title" placeholder="Title"}}
+            {{> afFieldInput name="description" placeholder="Description"}}
+            {{> afFieldInput name="hangoutLink" placeholder="Hangout link"}}
+            <div style="position: relative;">
+                {{> afFieldInput name="date" type="text" placeholder="Date" class="datetimepicker"}}
+            </div>
+            <button type="submit" class="button_subscribe_green">Add new</button>
+        {{/autoForm}}
+    {{/if}}
+</template>
+
+<template name="schedulesLectureUpdateForm">
+    {{#if isInRole 'global_admin'}}
+        <h2 id='schedules-lecture-form'>​​Schedule form - Update lecture</h2>
+        {{#autoForm collection="Colls.Schedules" doc=scheduleLecture id="updateLectureScheduleForm" type="update"}}
+            {{> afFieldInput name="title" placeholder="Title"}}
+            {{> afFieldInput name="description" placeholder="Description"}}
+            {{> afFieldInput name="hangoutLink" placeholder="Hangout link"}}
+            <div style="position: relative;">
+                {{> afFieldInput name="date" type="text" placeholder="Date" class="datetimepicker"}}
+            </div>
+            <button type="submit" class="button_subscribe_green">{{i18n 'common.update'}}</button>
+        {{/autoForm}}
+    {{/if}}
+</template>

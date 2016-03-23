@@ -1,0 +1,9 @@
+.idea
+.meteor/.id
+.directory
+.deploy
+fixtures.json
+settings.json
+run_with_kadira.sh
+nbproject
+*.swp

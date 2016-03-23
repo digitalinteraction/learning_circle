@@ -1,0 +1,67 @@
+<template name="reportedPosts">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box_style_1">
+                    <h2>{{i18n "common.reportedPosts"}}</h2>
+                    <hr>
+                    {{#each getPostReports}}
+                        {{> reportedPostItem message=message status=status docId=docId reportId=_id docOriginalStatus=docOriginalStatus}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="reportedPostItem">
+    <a href="{{pathFor 'blogView' _id=docId}}">
+        <div class="row">
+            <div class="box_style_1a" style="min-height: 120px;">
+                <div class="col-xs-8">
+                    <h3 style="margin-top: 0;">Post title: {{title}}</h3>
+                        <div>Report: {{message}}</div>
+                        <div>Status: {{status}}</div>
+                </div>
+                <div class="col-xs-4">
+                        <span class="lc-btn-block pull-right js-report-accept">{{i18n 'common.accept'}}</span><br>
+                        <span class="lc-btn-block pull-right js-report-resolve">{{i18n 'common.resolve'}}</span><br>
+                </div>
+            </div>
+        </div>
+    </a>
+</template>
+
+<template name="reportedProjects">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box_style_1">
+                    <h2>{{i18n "common.reportedProjects"}}</h2>
+                    <hr>
+                    {{#each getProjectReports}}
+                        {{> reportedProjectItem message=message status=status docId=docId reportId=_id docOriginalStatus=docOriginalStatus}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="reportedProjectItem">
+    <a href="{{pathFor 'projectView' _id=docId}}">
+        <div class="row">
+            <div class="box_style_1a" style="min-height: 120px;">
+                <div class="col-xs-8">
+                    <h3 style="margin-top: 0;">Project title: {{title}}</h3>
+                        <div>Report: {{message}}</div>
+                        <div>Status: {{status}}</div>
+                </div>
+                <div class="col-xs-4">
+                    <span class="lc-btn-block pull-right js-report-accept">{{i18n 'common.accept'}}</span><br>
+                    <span class="lc-btn-block pull-right js-report-resolve">{{i18n 'common.resolve'}}</span><br>
+                </div>
+            </div>
+        </div>
+    </a>
+</template>

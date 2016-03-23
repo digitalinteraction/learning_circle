@@ -1,0 +1,39 @@
+[submodule "packages/vazco-files-upload"]
+	path = packages/vazco-files-upload
+	url = git@bitbucket.org:vazco/m_vazco_files_upload.git
+[submodule "packages/universe-profile"]
+	path = packages/universe-profile
+	url = git@bitbucket.org:vazco/universe-profile.git
+[submodule "packages/vazco-tools-messages"]
+	path = packages/vazco-tools-messages
+	url = git@bitbucket.org:vazco/m_vazco_tools_messages.git
+[submodule "packages/universe-cms"]
+	path = packages/universe-cms
+	url = git@bitbucket.org:vazco/universe-cms.git
+[submodule "packages/universe-chat"]
+	path = packages/universe-chat
+	url = git@bitbucket.org:vazco/universe-chat.git
+[submodule "packages/universe-cms-summernote"]
+	path = packages/universe-cms-summernote
+	url = git@bitbucket.org:vazco/universe-cms-summernote.git
+[submodule "packages/universe-comments"]
+	path = packages/universe-comments
+	url = git@bitbucket.org:vazco/universe_comments.git
+[submodule "packages/universe-cms-files"]
+	path = packages/universe-cms-files
+	url = git@bitbucket.org:vazco/universe-cms-files.git
+[submodule "packages/universe-river"]
+	path = packages/universe-river
+	url = git@bitbucket.org:vazco/universe-river.git
+[submodule "packages/vazco-like-content2"]
+	path = packages/vazco-like-content2
+	url = git@bitbucket.org:vazco/m_vazco_like_content2.git
+[submodule "packages/universe-notifications"]
+	path = packages/universe-notifications
+	url = git@bitbucket.org:vazco/universe-notifications.git
+[submodule "packages/meteor-universe-access"]
+	path = packages/meteor-universe-access
+	url = git@github.com:vazco/meteor-universe-access.git
+[submodule "packages/universe-core"]
+	path = packages/universe-core
+	url = git@github.com:vazco/universe-core.git

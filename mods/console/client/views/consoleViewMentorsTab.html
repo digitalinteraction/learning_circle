@@ -1,0 +1,69 @@
+<template name="consoleViewMentorsTab">
+    <div class="mentors-tab" id="mentors">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>
+                    {{i18n 'courses.mentorsLabel'}}
+                    <small>
+                        <a href="#" class="lc-btn mbn pull-right">{{i18n 'classView.sendMsgToAll'}}</a>
+                    </small>
+                </h4>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            {{#each getAllMentorsInCourse}}
+                <div class="col-md-3 col-sm-4">
+                    <div class="box_style_3 {{#if isPendingMentor}}mentor-pending{{/if}}" data-info="{{#if isPendingMentor}}pending{{/if}}">
+                        <p>
+                            {{> consoleViewMentorsTabAvatar}}
+                        </p>
+                        <h4 class="p-title">
+                            {{getName}}
+                            <a href="#" class="send-message"><i class="fa fa-envelope"></i></a>
+                            {{#if isPendingMentor}}
+                                <a href="#" class="mls pending-approve-icon js-approve-mentor" title="Approve Mentor membersip"><i class="fa fa-check"></i></a>
+                            {{/if}}
+                        </h4>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>
+                    {{i18n 'courses.studentsChairsLabel'}}
+                    <small>
+                        <a href="#" class="lc-btn mbn pull-right">{{i18n 'classView.sendMsgToAll'}}</a>
+                    </small>
+                </h4>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            {{#each getAllstudentChairsInCourse}}
+                <div class="col-md-3 col-sm-4">
+                    <div class=" box_style_3">
+                        <p>
+                            {{> consoleViewMentorsTabAvatar}}
+                        </p>
+                        <h4 class="p-title">
+                            {{getName}}
+                            <a href="#" class="send-message"><i class="fa fa-envelope"></i></a>
+                        </h4>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</template>
+
+<template name="consoleViewMentorsTabAvatar">
+    {{#with getUserFromId _id}}
+        {{#if getAvatar}}
+            <img src="{{getAvatar}}" class="img-circle styled" alt="">
+        {{else}}
+            <img src="/img/160x160.gif" alt="" class="img-circle styled">
+        {{/if}}
+    {{/with}}
+</template>

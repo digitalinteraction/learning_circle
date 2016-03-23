@@ -1,0 +1,56 @@
+<template name="schedulesView">
+    <div class="container container-schedule">
+        {{!-- #if isCourseStudentOrCourseMentorOrAdmin}}
+            <div class="console-floating-menu js-console-floating-menu">
+                <ul>
+                    <li><a href="#" class="js-go-to-top">{{i18n 'common.dashboard'}}</a></li>
+                    <li><a href="#" class="js-go-to-today">{{i18n 'common.activity'}}</a></li>
+                </ul>
+            </div>
+        {{/if --}}
+        <aside class="col-sm-4 col-md-3 pull-right filtersContainer">
+            <div class="box_style_1 consoleViewNavFilters">
+                <div class="widget hidden-xs hidden-sm">
+                    <h4>{{i18n 'announcements.titleLabel'}}</h4>
+                    <p>
+                        {{i18n 'common.timezoneSystemSettings'}}
+                    </p>
+                </div>
+                {{> consoleViewNavFilters}}
+
+                <div class="clearfix"></div>
+            </div>
+        </aside>
+        <div class="col-sm-8 col-md-9">
+            <div class="row">
+                <div class="col-xs-12">
+                    {{#if isUserMembershipPending}}
+                        {{#if mentorFormSuccess}}
+                            <div class="row">
+                                <div class="confirmation-waiting-box">
+                                    {{{i18n 'courses.applicationConsiderationMsg' '<a href="/blog">blogs</a>'}}}
+                                </div>
+                            </div>
+                        {{else}}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="confirmation-waiting-box">
+                                        {{{i18n 'courses.applicationConsiderationMsg' '<a href="/blog">blogs</a>'}}}
+                                    </div>
+                                </div>
+                            </div>
+                        {{/if}}
+
+                    {{/if}}
+
+                    <div class="tab-content js-tab-panes">
+                        {{#if isCourseStudentOrCourseMentorOrAdmin}}
+                            {{> consoleViewStudentWeekPaneView}}
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+

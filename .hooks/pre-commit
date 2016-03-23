@@ -1,0 +1,22 @@
+#!/bin/sh
+
+files=$(git diff --cached --name-only --diff-filter=ACMR | grep .js$)
+if [ "$files" = "" ]; then
+    echo "\nThere are no .js file staged\n"
+    exit 0
+fi
+
+echo "\nRunning ESLint:\n"
+
+#jshint ${files} --exclude-path packages/.gitignore
+eslint ${files}
+
+RETVAL=$?
+
+if [ $RETVAL -ne 0 ]; then
+    echo "\n\033[41mCan't commit:\033[0m Some of your file isn't passing ESLint validation.\n"
+else
+    echo "\033[42mEverything is ok, commiting...\033[0m\n"
+fi
+
+exit $RETVAL

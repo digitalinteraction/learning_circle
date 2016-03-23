@@ -1,0 +1,125 @@
+<template name="consoleViewScheduleItem">
+    <div class="row console-schedule-item {{#if isConsoleScheduleHidden}}hidden{{/if}}">
+        <div class="col-md-12">
+            <div>
+                <ul class="cbp_tmtimeline console-item-list">
+                    <li>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-11">
+                                <div class="cbp_tmicon hidden-xs">
+                                    <i class="fa fa-fw fa-calendar"></i>
+                                </div>
+                                <div class="cbp_tmlabel">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="river-task-button dropdown pull-right">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                                    {{#if attendenceState}}
+                                                        {{attendenceState}} <span class="caret"></span>
+                                                    {{else}}
+                                                        Going? <span class="caret"></span>
+                                                    {{/if}}
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" title="Going?" aria-labelledby="dropdownMenu1">
+                                                    <li role="presentation">
+                                                        <a role="menuitem" tabindex="-1" href="#" class="js-attendence-yes">{{i18n 'common.yes'}}</a>
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a role="menuitem" tabindex="-1" href="#" class="js-attendence-no">{{i18n 'common.no'}}</a>
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a role="menuitem" tabindex="-1" href="#" class="js-attendence-reschedule">{{i18n 'schedules.reschedule'}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <h4 class="river-actor-header">
+                                                {{calcTzSessionsTime sessionDay sessionHour sessionTimezone date 'll'}}
+                                                 <span>{{calcTzSessionsTime sessionDay sessionHour sessionTimezone date 'HH:mm'}}</span>
+                                                <span class="time-zone-label">(Time zone {{getTimeZone}})</span>
+                                                <div class="hangout-button seledin-text">
+                                                    <a href="{{hangoutLink}}?authuser=0"> <i class="fa fa-video-camera"></i> Hangout</a>
+                                                </div>
+                                            </h4>
+                                            <h3 class="river-title-header">{{title}}</h3>
+                                            <div class="river-tools-box">
+                                                <a href="#" class="js-show-comments-box">{{commentsCount _id}} <i class="fa fa-comment"></i> <span class="hidden-xs">Comments</span></a>
+                                            </div>
+                                            <div class="river-comments-box">
+                                                {{> uniRiverComments}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="consoleViewLectureScheduleItem">
+    <div class="row console-schedule-item {{#if isConsoleScheduleHidden}}hidden{{/if}}">
+        <div class="col-md-12">
+            <div>
+                <ul class="cbp_tmtimeline console-item-list">
+                    <li>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-11">
+                                <div class="cbp_tmicon hidden-xs">
+                                    <i class="fa fa-fw fa-calendar"></i>
+                                </div>
+                                <div class="cbp_tmlabel">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="river-task-button dropdown pull-right">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                                    {{#if attendenceState}}
+                                                        {{attendenceState}} <span class="caret"></span>
+                                                    {{else}}
+                                                        Going? <span class="caret"></span>
+                                                    {{/if}}
+                                                </button>
+                                                <ul class="dropdown-menu" title="Going?" role="menu" aria-labelledby="dropdownMenu1">
+                                                    <li role="presentation">
+                                                        <a role="menuitem" tabindex="-1" href="#" class="js-attendence-yes">{{i18n 'common.yes'}}</a>
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a role="menuitem" tabindex="-1" href="#" class="js-attendence-no">{{i18n 'common.no'}}</a>
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a role="menuitem" tabindex="-1" href="#" class="js-attendence-later">{{i18n 'schedules.willWatchLater'}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <h4 class="river-actor-header">
+                                                <span class="mtm">{{formatDate date 'll'}}</span> <span class="mtm">{{getTime}}</span>
+                                                <span class="time-zone-label">(Time zone {{getTimeZone}})</span>
+                                                <div class="hangout-button seledin-text">
+                                                    <span><a href="{{hangoutLink}}?authuser=0"><i class="fa fa-video-camera"></i> Hangout</a></span>
+                                                </div>
+                                            </h4>
+                                            <h3 class="river-title-header">{{title}}</h3>
+                                            <div>
+                                                {{description}}
+                                            </div>
+                                            <div class="river-tools-box">
+                                                <a href="#" class="js-show-comments-box">{{commentsCount _id}} <i class="fa fa-comment"></i> <span class="hidden-xs">Comments</span></a>
+                                            </div>
+                                            <div class="river-comments-box">
+                                                {{> uniRiverComments _id=_id docCollection='Activities'}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>

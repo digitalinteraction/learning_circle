@@ -1,0 +1,23 @@
+<template name="notificationArchiveItem">
+    <div class="row uni-notifications-item-wrapper">
+        <div class="col-xs-12 uni-notifications-item-container">
+            <div class="inline-block">
+                {{#getUser authorInfo._id}}
+                    {{#if avatar}}
+                        <img src="{{avatar.url}}" class="img-circle" alt="">
+                    {{else}}
+                        <img src="/img/160x160.gif" alt="" class="img-circle styled">
+                    {{/if}}
+                {{/getUser}}
+            </div>
+            <div class="inline-block mls">
+                <a href="{{getURL}}">
+                    <span class="seledin-text">{{entityTitle}}</span> was marked as inappropriate and was archived by
+                    the admin
+                    <span class="time-created-label">{{formatingtime createdAt 'MMM DD, YYYY hh:mm'}}</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</template>

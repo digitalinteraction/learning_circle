@@ -1,0 +1,20 @@
+<template name="reportModal">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{i18n "common.report"}}</h4>
+    </div>
+    <div class="modal-body">
+        {{#autoForm collection="Colls.Reports" id="reportForm" type="insert"}}
+            {{> afQuickField name="message" rows=10}}
+            {{> afFieldInput type="hidden" name="userId" value=userId}}
+            {{> afFieldInput type="hidden" name="docId" value=docId}}
+            {{> afFieldInput type="hidden" name="docOriginalStatus" value=docOriginalStatus}}
+            {{> afFieldInput type="hidden" name="docType" value=docType}}
+            {{> afFieldInput type="hidden" name="status" value=status}}
+            <button type="submit" class="btn btn-primary pull-right">{{i18n "common.submit"}}</button>
+        {{/autoForm}}
+        <div class="clearfix"></div>
+    </div>
+
+</template>

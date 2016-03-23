@@ -1,0 +1,55 @@
+.apply-wizard {
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+    .form-group { // why I need to do this??? I don't know.. Bootstrap.
+        width: 100% !important;
+        margin: 0 auto;
+    }
+    textarea {
+        min-height: 150px;
+    }
+    .switch-light > span {
+        top: 0;
+    }
+    .apply-info{
+        margin-bottom: 15px;
+        &.large-space{
+            padding-bottom: 25px;
+        }
+    }
+    .form-title{
+        margin-bottom: 30px !important;
+    }
+    .separator-large{
+        margin-bottom: 40px;
+        height: 20px;
+    }
+    .apply-label{
+        font-size: 14px;
+        line-height: 18px;
+        margin: 0;
+        background-color: #fff;
+        color: #2d4050;
+        -webkit-font-smoothing: antialiased !important;
+        min-height: 20px;
+        font-weight: 600;
+    }
+    a{
+        font-weight: 600;
+    }
+}
+
+#main_content.applyMentorView {
+    .form-group {
+        .control-label {
+            text-align: left;
+        }
+    }
+    .js-if-selected-whatrole{
+        display: none;
+    }
+    .select-without-margin{
+        margin-bottom: 0px !important;
+    }
+}

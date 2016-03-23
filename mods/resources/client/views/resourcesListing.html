@@ -1,0 +1,63 @@
+<template name="resourcesListingHeader">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h1>{{i18n 'resources.viewTitle'}}</h1>
+        </div>
+    </div>
+</template>
+
+<template name="resourcesListing">
+    <div class="row">
+        <aside class="col-xs-12 col-md-3 pull-right">
+            <div class="box_style_1">
+                <div class="widget">
+                    <a href="#" class="lc-btn-block-big">{{i18n 'resources.writeYourOwnLabel'}}</a>
+                </div>
+
+                <div class="widget">
+                    <h4>{{i18n 'announcements.titleLabel'}}</h4>
+
+                    <p>
+                        Use this space for either displaying stats or class announcements (like: class section next
+                        Tuesday) or expand resources section to three panels on Desktop
+                    </p>
+                </div>
+            </div>
+        </aside>
+        <div class="col-xs-12 col-md-9">
+            <div class="row">
+                {{> headerWithSearch}}
+                {{#each repeat count}}
+                    <div class="col-md-6">
+                        {{> resourcesListingItem}}
+                    </div>
+                {{/each}}
+            </div>
+            <hr>
+
+            <div class="text-center">
+                <a href="#" class="lc-btn-outline-big js-load-more">{{i18n 'common.loadMore'}}</a>
+            </div>
+
+        </div>
+    </div>
+
+
+</template>
+
+<template name="resourcesListingItem">
+    <div class="post post-narrow">
+        <h2><a href="{{pathFor 'resourcesView'}}">Duis aute irure dolor in reprehenderit</a></h2>
+        <span class="createdby">Created by John Smith on February 16, 2015</span>
+
+        <a href="{{pathFor 'resourcesView'}}">
+            <img src="/img/placeholder3.jpg" alt="" class="img-responsive">
+        </a>
+
+        <p>
+            Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta.
+            Fusce suscipit varius mi nascetur ridiculus mus. Nulla dui. Fusce feugiat malesuada
+            odio. Morbi nunc odio, gravida at, cursus nec, luctus a, lorem.....
+        </p>
+    </div>
+</template>

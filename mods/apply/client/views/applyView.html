@@ -1,0 +1,250 @@
+<template name="applyView">
+
+    <!-- TODO: divide it into templates and merge with applyMentorView -->
+
+    <div id="survey_container">
+
+        {{#with getLoggedIn}}
+
+            <div id="top-wizard" class="{{#if isInRole 'global_student'}}hide{{/if}}">
+                <strong>{{i18n 'common.progress'}} </strong>
+
+                <div id="progressbar"></div>
+                <div class="shadow"></div>
+            </div>
+            <!-- end top-wizard -->
+            {{#autoForm schema=applyFormSchemaHelper doc=currentUser id="applyForm" type="method" meteormethod="courseApply" class="form-horizontal"}}
+                <div id="middle-wizard" class="apply-wizard">
+                    <div class="row">
+                        <h3 class="col-md-12 form-title">{{getCourse.title}} {{i18n 'apply.studentApplicationForm'}}</h3>
+                    </div>
+                    <div class="{{#if isInRole 'global_student'}}hide{{else}}step{{/if}}">
+                        <div class="row">
+                            <h4 class="col-md-12">{{i18n 'apply.stepOneTitle'}}</h4>
+
+                            <div class="col-sm-12 apply-info">
+                                {{{i18n 'apply.stepOneDescriptionOne'
+                                getCourse.title
+                                getCourse.providerName
+                                getCourse.formatDate.start
+                                getCourse.formatDate.end
+                                '<a href="/page/faq" target="_blank">FAQ</a>'
+                                '<a href="/page/privacy" target="_blank">Privacy Policy</a>'
+                                '<a href="/page/terms" target="_blank">Terms of Use</a>'
+                                }}}
+                            </div>
+                            <div class="col-sm-12 apply-info large-space">
+                                <label class="switch-light switch-ios ">
+                                    <input type="checkbox" name="privacyPolicy" class="required fix_ie8 valid"
+                                           data-schema-key="privacyPolicy" value=true
+                                           checked={{isInRole 'global_student'}}>
+                                            <span>
+                                                <span class="ie8_hide">{{i18n 'common.no'}}</span>
+                                            <span>{{i18n 'common.yes'}}</span>
+                                            </span>
+                                    <a></a>
+                                </label>
+                            </div>
+                            <div class="col-sm-12 apply-info">
+                                {{{i18n 'apply.stepOneDescriptionTwo' '<a href="/page/community" target="_blank">community guidelines</a>'}}}
+                            </div>
+                            <div class="col-sm-12 apply-info">
+                                <label class="switch-light switch-ios ">
+                                    <input type="checkbox" name="terms" class="required fix_ie8 valid"
+                                           data-schema-key="terms" value=true checked={{isInRole 'global_student'}}>
+                                            <span>
+                                                <span class="ie8_hide">{{i18n 'common.no'}}</span>
+                                            <span>{{i18n 'common.yes'}}</span>
+                                            </span>
+                                    <a></a>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    <div class="{{#if isInRole 'global_student'}}hide{{else}}step{{/if}}">
+                        <div class="row">
+                            <h4 class="col-md-12">{{i18n 'apply.stepTwoTitle'}}</h4>
+
+                            <div class="col-sm-12 apply-info">{{i18n 'apply.aboutYouInfo'}}</div>
+                            <div class="col-md-6">
+                                <ul class="data-list">
+                                    <li>
+                                        <div class="form-group">
+                                            {{> afFieldInput name="name" value=name}}
+                                            <span class="input-icon"><i class="icon-user"></i></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            {{> afFieldInput name="surname" value=surname}}
+                                            <span class="input-icon"><i class="icon-user"></i></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            {{> afFieldInput name="email" readonly=true value=userEmailVal}}
+                                            <span class="input-icon"><i class="icon-email"></i></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            {{> afFieldInput name="nationality" value=nationality}}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            {{> afFieldInput name="birthday" class="datetimepicker" value=birthday}}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- end col-md-6 -->
+                            <div class="col-md-6">
+                                <ul class="data-list" style="margin:0; padding:0;">
+                                    <li>
+                                        <div class="form-group">
+                                            {{> afFieldInput name="country" value=country}}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            {{> afFieldInput name="city" value=city}}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="form-group">
+                                            {{> afFieldInput name="school" value=school}}
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="data-list floated clearfix">
+
+                                    <li>
+                                        <div class="styled-select">
+                                            {{> afFieldInput name="gender" value=gender}}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- end col-md-6 -->
+                        </div>
+                        <!-- end row -->
+                    </div>
+                    <!-- end step-->
+
+                    <div class="{{#if isInRole 'global_student'}}hide{{else}}step{{/if}}">
+                        <div class="row">
+                            <h4 class="col-md-12">{{i18n 'apply.stepThreeTitle'}}</h4>
+
+                            <div class="col-md-6">
+                                <ul class="data-list-2 clearfix">
+                                    <li>
+                                        <div class="styled-select">
+                                            {{> afFieldInput name="englishLevel" value=englishLevel}}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="styled-select">
+                                    {{> afFieldInput name="howDidYouHear" value=howDidYouHear class="js-other-q4-option"}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ul class="data-list-2 clearfix">
+                                    <li class="{{#unless isQ4otherOptionSelected}}hide{{/unless}}">
+                                        <label class="apply-label">Please specify:</label>
+                                        {{> afFieldInput name="mentorQuestion4Other"}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="row">
+                            <h4 class="col-md-12">{{i18n 'apply.stepFourTitle'}}</h4>
+
+                            <div class="col-md-6">
+                                {{> afFieldInput name="courseId" readonly=true value=courseIdVal placeholder=label type="hidden"}}
+                                {{i18n "apply.stepFourDescription"}}
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="data-list-2 clearfix">
+                                    <li>
+                                        <div class="styled-select">
+                                            {{> afFieldInput name="groupSessionTime1" options=sessionOptions}}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="styled-select">
+                                            {{> afFieldInput name="groupSessionTime2" options=sessionOptions}}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="styled-select">
+                                            {{> afFieldInput name="groupSessionTime3" options=sessionOptions}}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{> afQuickField name="whyThisCourse" value=whyThisCourse}}
+                            </div>
+                            <div class="col-md-12">
+                                {{> afQuickField name="groupProjectIdea" value=groupProjectIdea}}
+                            </div>
+                        </div>
+                        {{!--}}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <ul class="data-list" id="coursePaid">
+                                    <li>
+                                        <button class="lc-btn mbl js-stripe-payment">{{i18n 'apply.payForCourseLabel'}}</button>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <strong>{{i18n 'apply.haveYouPaidQuestion'}}</strong>
+                                        </div>
+                                        <label class="switch-light switch-ios ">
+                                            <input type="checkbox" name="coursePaid" class="fix_ie8 valid"
+                                                   data-schema-key="coursePaid" value=true>
+                                            <span>
+                                                <span class="ie8_hide">{{i18n 'common.no'}}</span>
+                                            <span>{{i18n 'common.yes'}}</span>
+                                            </span>
+                                            <a></a>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        {{!--}}
+                    </div>
+
+                    <div class="submit step" id="complete">
+                        <i class="icon-check"></i>
+
+                        <div class="apply-info">{{i18n 'apply.stepFinnalDescription'}}</div>
+                        <button type="submit" name="process" class="submit">{{i18n 'common.submit'}}</button>
+                    </div>
+                    <!-- end submit step -->
+
+                </div>
+                <!-- end middle-wizard -->
+
+                <div id="bottom-wizard">
+                    <button type="button" name="backward" class="backward">{{i18n 'common.back'}}</button>
+                    <button type="button" name="forward" class="forward">{{i18n 'common.next'}}</button>
+                </div>
+                <!-- end bottom-wizard -->
+            {{/autoForm}}
+        {{/with}}
+    </div>
+    <!-- end Survey container -->
+</template>

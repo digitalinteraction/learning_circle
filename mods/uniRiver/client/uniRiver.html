@@ -1,0 +1,293 @@
+
+<template name="UniRiverLCActivity">
+    {{> UniRiverMessage}}
+</template>
+
+<template name="UniRiverPaginationSpinner">
+    <div class="col-sm-12 text-center">
+        <div class="spinner uni-river-spinner js-uni-river-pagination-spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+</template>
+
+<template name="UniRiverBlogItem">
+    <div class="row console-blog-item {{#if isConsoleBlogHidden}}hidden{{/if}}">
+        <div class="col-md-12">
+            <div>
+                <ul class="cbp_tmtimeline console-item-list">
+                    <li>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-11">
+                                <div class="cbp_tmicon hidden-xs">
+                                    <i class="fa fa-fw fa-pencil-square-o"></i>
+                                </div>
+                                <div class="cbp_tmlabel">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4 class="river-actor-header">
+                                                <a href="{{pathFor 'uniProfile' _id=actor._id}}" class="river-actor-image">
+                                                {{#if getAvatar actor._id}}
+                                                    <img src="{{getAvatar actor._id}}" class="console-item-title-img" alt="">
+                                                    {{else}}
+                                                    <img src="/img/160x160.gif" alt="" class="console-item-title-img">
+                                                {{/if}}
+                                                </a>
+                                                <div class="river-actor-right seledin-text">
+                                                    by <a href="{{pathFor 'uniProfile' _id=actor._id}}"><span class="username">{{actor.name}}</span></a>
+                                                    <div class="river-created-time">{{formatDate createdAt 'MMM Do YYYY HH:mm'}}</div>
+                                                </div>
+                                            </h4>
+                                            <h3 class="river-title-header"><a href="{{pathFor 'blogView' _id=o._id}}">{{o.title}}</a></h3>
+                                            {{#if imageURL}}
+                                                <div class="row">
+                                                    <div class="col-md-5"><img src="{{imageURL}}" style="width: 100%"></div>
+                                                    <div class="col-md-7">{{trimHTMLString o.brief 360 '...'}}</div>
+                                                </div>
+                                                {{else}}
+                                                <div class="row">
+                                                    <div class="col-md-12">{{trimHTMLString o.brief 800 '...'}}</div>
+                                                </div>
+                                            {{/if}}
+                                            <div class="river-tools-box">
+                                                {{> likeButtons collection='Blog' doc=this.o}}
+                                                <a href="#" class="js-show-comments-box">{{commentsCount o._id}} <i class="fa fa-comment"></i> <span class="hidden-xs">Comments</span></a>
+                                                <a href="#" class="js-show-share-box"><i class="fa fa-share"></i> <span class="hidden-xs">Share</span></a>
+                                                <div class="action-type-label">{{getActionTypeName}} {{formatDate o.lastAction 'll HH:mm'}}</div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="river-share-box">
+                                                {{> uniRiverShareBox}}
+                                            </div>
+                                            <div class="river-comments-box">
+                                                {{> uniRiverComments _id=o._id docCollection='Blog'}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="UniRiverMessage-createdBlog">
+    {{> UniRiverBlogItem}}
+</template>
+
+<template name="UniRiverMessage-updatedBlog">
+    {{> UniRiverBlogItem}}
+</template>
+
+<template name="UniRiverMessage-removedBlog">
+    {{> UniRiverBlogItem}}
+</template>
+
+
+<template name="UniRiverProjectItem">
+    <div class="row console-project-item {{#if isConsoleProjectHidden}}hidden{{/if}}">
+        <div class="col-md-12">
+            <div>
+                <ul class="cbp_tmtimeline console-item-list">
+                    <li>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-11">
+                                <div class="cbp_tmicon hidden-xs">
+                                    <i class="fa fa-fw fa-pencil-square-o"></i>
+                                </div>
+                                <div class="cbp_tmlabel">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4 class="river-actor-header">
+                                                <a href="{{pathFor 'uniProfile' _id=actor._id}}" class="river-actor-image">
+                                                    {{#if getAvatar actor._id}}
+                                                        <img src="{{getAvatar actor._id}}" class="console-item-title-img" alt="">
+                                                    {{else}}
+                                                        <img src="/img/160x160.gif" alt="" class="console-item-title-img">
+                                                    {{/if}}
+                                                </a>
+                                                <div class="river-actor-right seledin-text">
+                                                    by <a href="{{pathFor 'uniProfile' _id=actor._id}}"><span class="username">{{actor.name}}</span></a>
+                                                    <div class="river-created-time">{{formatDate createdAt 'MMM Do YYYY HH:mm'}}</div>
+                                                </div>
+                                            </h4>
+                                            <h3 class="river-title-header"><a href="{{pathFor 'projectView' _id=o._id}}">{{o.title}}</a></h3>
+                                            {{#if imageURL}}
+                                                <div class="row">
+                                                    <div class="col-md-5"><img src="{{imageURL}}" style="width: 100%"></div>
+                                                    <div class="col-md-7">{{trimHTMLString o.brief 360 '...'}}</div>
+                                                </div>
+                                            {{else}}
+                                                <div class="row">
+                                                    <div class="col-md-12">{{trimHTMLString o.brief 800 '...'}}</div>
+                                                </div>
+                                            {{/if}}
+                                            <div class="river-tools-box">
+                                                {{> likeButtons collection='Project' doc=this.o}}
+                                                <a href="#" class="js-show-comments-box">{{commentsCount o._id}} <i class="fa fa-comment"></i> <span class="hidden-xs">Comments</span></a>
+                                                <a href="#" class="js-show-share-box"><i class="fa fa-share"></i> <span class="hidden-xs">Share</span></a>
+                                                <div class="action-type-label">{{getActionTypeName}} {{formatDate o.lastAction 'll HH:mm'}}</div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="river-share-box">
+                                                {{> uniRiverShareBox}}
+                                            </div>
+                                            <div class="river-comments-box">
+                                                {{> uniRiverComments _id=o._id docCollection='Project'}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="UniRiverMessage-createdProject">
+    {{> UniRiverProjectItem}}
+</template>
+
+<template name="UniRiverMessage-updatedProject">
+    {{> UniRiverProjectItem}}
+</template>
+
+<template name="UniRiverMessage-removedProject">
+    {{> UniRiverProjectItem}}
+</template>
+
+
+<template name="UniRiverMessage-unconnectedComment">
+    <div class="row console-unconnectedComment-item">
+        <div class="col-md-12">
+            <div>
+                <ul class="cbp_tmtimeline console-item-list">
+                    <li>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-11">
+                                <div class="cbp_tmicon hidden-xs">
+                                    <i class="fa fa-fw fa-comment"></i>
+                                </div>
+                                <div class="cbp_tmlabel">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h4 class="river-actor-header">
+                                                {{#if canEdit}}
+                                                    {{#unless isEditMode}}
+                                                        <a href="#" class="js-delete-post pull-right" title="Are you sure?"><span class="glyphicon glyphicon-remove"></span></a>
+                                                        <a href="#" class="js-edit-post-form pull-right" title="Edit"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    {{/unless}}
+                                                {{/if}}
+                                                <a href="{{pathFor 'uniProfile' _id=actor._id}}" class="river-actor-image">
+                                                    {{#if getAvatar actor._id}}
+                                                        <img src="{{getAvatar actor._id}}" class="console-item-title-img" alt="">
+                                                    {{else}}
+                                                        <img src="/img/160x160.gif" alt="" class="console-item-title-img">
+                                                    {{/if}}
+                                                </a>
+                                                <div class="river-actor-right seledin-text">
+                                                    by <a href="{{pathFor 'uniProfile' _id=actor._id}}"><span class="username">{{actor.name}}</span></a>
+                                                    <div class="river-created-time">{{formatDate createdAt 'MMM Do YYYY HH:mm'}}</div>
+                                                </div>
+                                            </h4>
+                                            <div class="row river-description">
+                                                <div class="col-md-12 post-text">
+                                                    {{#if isEditMode}}
+                                                        {{#if canEdit}}
+                                                            {{> unconnectedCommentEditForm}}
+                                                        {{/if}}
+                                                    {{else}}
+                                                        {{{o.description}}}
+                                                    {{/if}}
+                                                </div>
+                                            </div>
+                                            <div class="river-tools-box">
+                                                {{> likeButtons collection='UniRiver.Activities' doc=this customPath='o'}}
+                                                <a href="#" class="js-show-comments-box">{{commentsCount _id}} <i class="fa fa-comment"></i> <span class="hidden-xs">Comments</span></a>
+                                            </div>
+                                            <div class="river-comments-box">
+                                                {{> uniRiverComments _id=_id docCollection='Activities'}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="unconnectedCommentEditForm">
+    <textarea name="post-text" class="form-control">{{{o.description}}}</textarea>
+    <button class="lc-btn pull-right js-edit-post">Save</button>
+</template>
+
+<template name="UniRiverMessage-taskDeadline">
+    <div class="row console-task-item {{#if isConsoleTaskHidden}}hidden{{/if}}">
+        <div class="col-md-12">
+            <div>
+                <ul class="cbp_tmtimeline console-item-list">
+                    <li>
+                        <div class="row">
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-11">
+                                <div class="cbp_tmicon hidden-xs">
+                                    <i class="fa fa-fw fa-tasks"></i>
+                                </div>
+                                <div class="cbp_tmlabel">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <h3 class="river-title-header">{{i18n 'tasks.viewTitle'}}: {{o.title}} {{i18n 'river.taskExceeded'}}</h3>
+                                            <div class="row">
+                                                <div class="col-md-12">{{{o.description}}}</div>
+                                            </div>
+                                            <div class="river-tools-box">
+                                                <a href="#" class="js-show-comments-box">{{commentsCount _id}} <i class="fa fa-comment"></i> <span class="hidden-xs">Comments</span></a>
+                                            </div>
+                                            <div class="river-comments-box">
+                                                {{> uniRiverComments _id=_id docCollection='Activities'}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="uniRiverShareBox">
+    <div class="text-center">
+        <ul id="follow_us">
+            <li>
+                <a href="#" class="js-share" data-type="google"><i class="icon-google"></i></a>
+            </li>
+            <li>
+                <a href="#" class="js-share" data-type="facebook"><i class="icon-facebook"></i></a>
+            </li>
+            <li>
+                <a href="#" class="js-share" data-type="twitter"><i class="icon-twitter"></i></a>
+            </li>
+            <li>
+                <a href="#" class="js-share" data-type="pinterest"><i
+                        class="icon-pinterest"></i></a>
+            </li>
+        </ul>
+    </div>
+</template>

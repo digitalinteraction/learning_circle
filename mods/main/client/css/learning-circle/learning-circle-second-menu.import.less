@@ -1,0 +1,125 @@
+.layout-second-menu-container-wrapper {
+    height: 50px;
+
+    .layout-second-menu-container {
+        .sf-menu, .loggedInUserDropdownMenu ul {
+            li:hover{
+                background: none;
+            }
+
+            @media (min-width: 768px) {
+                li.col-xs-6 {
+                    width: auto !important;
+                }
+            }
+
+            .btns-label {
+                display: block;
+                padding: 13px;
+            }
+
+            a {
+                padding: 13px;
+
+                .fa {
+                    vertical-align: middle;
+                }
+                &:hover {
+                    color: rgb(48, 217, 164);
+                }
+                &:focus {
+                    color: white;
+                }
+                @media (min-width: 768px) {
+                    &.active {
+                        color: white;
+                        border-bottom: 2px solid rgb(48, 217, 164);
+                    }
+                }
+            }
+        }
+
+        &.fixed {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 200;
+        }
+        background-color: #1c1c1c;
+        color: white;
+        height: 50px;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 600;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    @media (max-width: 767px) {
+        position: relative;
+        top: 37px;
+        height: auto;
+        z-index: 100;
+        overflow-x: hidden;
+
+        .layout-second-menu-container {
+            height: 100%;
+            padding: 0;
+            padding-bottom: 1000px;
+            position: relative;
+
+            .container .row > div > ul > li, .container .row > ul > li {
+                padding: 15px;
+            }
+        }
+        .sf-menu {
+            display: block;
+        }
+    }
+
+
+    /* user dropdown menu */
+    .loggedInUserDropdownMenu{
+        float: left !important;
+
+        > li > a{
+            display: none;
+        }
+        ul {
+            display: block;
+            position: relative;
+            background: none;
+            box-shadow: none;
+            border: none;
+
+            li {
+                float: left;
+                a {
+                    color: #fff;
+                }
+            }
+        }
+
+        @media (max-width: 767px) {
+            width: 100%;
+            ul {
+                width: 100%;
+                li {
+                    padding: 15px;
+                    width: 50%;
+                    a {
+                        padding: 13px;
+                        display: block;
+                        background: #fff;
+                        color: #000;
+                    }
+                }
+            }
+        }
+    }
+
+}

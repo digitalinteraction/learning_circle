@@ -1,0 +1,102 @@
+<template name="communityViewImage">
+    {{#with communityFileObj}}
+        <img src="{{url}}" alt="" class="img-responsive">
+    {{/with}}
+</template>
+
+<template name="communityView">
+    {{#with community}}
+        <div class="container">
+            <div class="row">
+                <aside class="col-xs-12 col-md-4 pull-right">
+                    <div class="box_style_1">
+                        {{#if isAdminCommunities}}
+                        <div class="widget">
+                            <a href="{{pathFor 'communityEdit' communityId=_id}}"
+                               class="lc-btn-block-big">{{i18n 'community.editLabel'}}</a>
+                            <a href="{{pathFor 'coursesAdd' communityId=_id}}" class="lc-btn-block-big">Add course</a>
+                        </div>
+                        {{/if}}
+                        <div class="widget">
+                            <h4>{{i18n 'announcements.titleLabel'}}</h4>
+                            <p>
+                                {{i18n 'announcements.description'}}
+                            </p>
+                        </div>
+                    </div>
+                </aside>
+                <div class="col-xs-12 col-md-8">
+                    <div class="post container-fluid ptl pbl">
+                        <h2>{{title}}</h2>
+                        <div class="communityView-image">
+                        {{> communityViewImage}}
+                        </div>
+                        <div class="row mtl">
+                            <div class="col-sm-12">
+                                <div class="community-description">{{{description}}}</div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <h2>{{i18n 'courses.listTitle'}}</h2>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{> communityViewCoursesListing courses=../courses}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/with}}
+</template>
+
+
+<template name="communityViewCoursesListing">
+    <div class="row">
+        <div class="col-xs-12">
+            {{> headerWithSearch2 index="Courses"}}
+        </div>
+    </div>
+    <div class="row">
+
+        {{#ifEsInputIsEmpty index="Courses"}}
+            {{#each courses}}
+                <div class="col-md-6">
+                    {{> courseListingItem}}
+                </div>
+            {{/each}}
+        {{/ifEsInputIsEmpty}}
+
+        {{#ifEsIsSearching index="Courses"}}
+            <div class="text-center">
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+            </div>
+        {{else}}
+            <div class="results-wrapper">
+                {{#esEach index="Courses"}}
+                    <div class="col-md-6">
+                        {{> courseListingItem}}
+                    </div>
+                {{/esEach}}
+            </div>
+        {{/ifEsIsSearching}}
+    </div>
+    {{#ifEsHasNoResults index="Courses"}}
+        <hr>
+        <div>
+            <div class="no-results">
+                <h2>{{i18n 'courses.searchNoResultsInfo'}}</h2>
+            </div>
+        </div>
+    {{/ifEsHasNoResults}}
+    <hr>
+    <div class="text-center">
+        {{> esLoadMoreButton class="lc-btn-outline-big" content="Load more" index="Courses"}}
+    </div>
+</template>

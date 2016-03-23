@@ -1,0 +1,22 @@
+<template name="consoleViewGlobalEmailsTab">
+    <h3>{{i18n 'emails.tabs.templates'}}</h3>
+    <hr/>
+    {{#each getTriggers}}
+        {{> emailTemplateView}}
+    {{else}}
+        <h4>Loading...</h4>
+    {{/each}}
+</template>
+<template name="consoleViewCourseEmailsTab">
+    <h3>{{i18n 'emails.tabs.course'}}</h3>
+    <hr/>
+    {{> emailDrafts}}
+
+    <h3>{{i18n 'emails.tabs.templates'}}</h3>
+    <hr/>
+    {{#each getTriggers}}
+        {{> emailTemplateView}}
+    {{else}}
+        <h4>Loading...</h4>
+    {{/each}}
+</template>

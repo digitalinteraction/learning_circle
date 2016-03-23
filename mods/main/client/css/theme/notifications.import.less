@@ -1,0 +1,83 @@
+.uni-notifications-wrapper {
+  position: absolute;
+  right: 0px;
+  top: 26px;
+  display: none;
+  width: 300px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  .notifications-header-title {
+    background: #F4F4F4;
+    padding: 2px 10px;
+    position: relative;
+    top: -3px;
+  }
+  .gray-background {
+    background: #F4F4F4;
+    &.show-all-button {
+      position: relative;
+      top: 2px;
+      padding: 5px;
+    }
+  }
+  .inline-block:nth-child(2n) {
+    max-width: 220px;
+  }
+}
+
+.notification-button{
+    position: relative;
+    .notifications-counter {
+        position: absolute;
+        top: 12px;
+        right: -5px;
+        z-index: 9999;
+        background: #d60000;
+        color: #ffffff;
+        padding: 0px 7px;
+        border-radius: 13px;
+        font-size: 10px;
+    }
+}
+
+.main-content.notificationsListing {
+  padding-top: 20px !important;
+}
+
+.notifications-listing {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #FFF;
+}
+
+.uni-notifications-item-container {
+  border-bottom: 1px solid #CCCCCC;
+  padding: 10px;
+  font-size: 12px;
+  img {
+    height: 36px;
+    max-height: 36px;
+    max-width: 36px;
+    vertical-align: bottom;
+  }
+  .time-created-label {
+    display: block;
+    color: #aaaaaa;
+  }
+}
+
+.dropdown.open {
+  .uni-notifications-wrapper {
+    display: block;
+  }
+}

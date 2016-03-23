@@ -1,0 +1,272 @@
+<template name="layoutTopBar">
+    <header class="layout-main-header js-main-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="logo-container col-lg-2 col-md-2 col-sm-2 col-xs-1">
+                    <a href="/" class="logo"></a>
+                </div>
+                <div class="hamburger-container col-lg-4 col-md-4 col-sm-6 col-xs-1 pull-right">
+                    <span class="hamburger-icon js-hamburger-icon visible-xs pull-right"><i class="icon icon-menu"></i></span>
+
+                    <div class="text-right hidden-xs">
+                        {{#with getLoggedIn}}
+                            {{> loggedInUserDropdownMenu}}
+                            {{#if isAdminOrParticipating}}
+                                {{> notificationsDropdownMenu}}
+                                {{> chatDropdownMenu}}
+                            {{/if}}
+                            {{> coursesDropdownMenu}}
+                        {{/with}}
+                    </div>
+                </div>
+                <div class="messages-notification-xs visible-xs col-xs-10">
+                    {{#with getLoggedIn}}
+                        {{> chatLinkIcon}}
+                        {{> notificationsLinkIcon}}
+                    {{else}}
+                        {{> lcLoginButtons}}
+                    {{/with}}
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-4 col-xs-12">
+                    {{> layoutMainMenu}}
+                </div>
+            </div>
+        </div>
+    </header>
+</template>
+
+<template name="layoutMainMenu">
+    <ul class="sf-menu sf-menu-restyled js-menu-main">
+        <li class="visible-xs mainMenuDropdown js-mainMenuDropdown">
+            {{#with getLoggedIn}}
+                {{> coursesDropdownMenu}}
+            {{/with}}
+        </li>
+        {{#if currentUser}}
+            <li class="{{#if mainMenuState 'console'}}active{{/if}} col-xs-6">
+                <a href="{{pathFor 'consoleView'}}">
+                    <i class="fa fa-graduation-cap"></i>
+                    <span class="hidden-sm visible-lg-inline-block">Class</span>
+                </a>
+            </li>
+        {{/if}}
+        <li class="{{#if mainMenuState 'content'}}active{{/if}} col-xs-6">
+            <a href="{{pathFor 'blogListing'}}">
+                <i class="fa fa-folder-open-o"></i>
+                <span class="hidden-sm visible-lg-inline-block">Content</span>
+            </a>
+        </li>
+        <li class="{{#if mainMenuState 'course'}}active{{/if}} col-xs-6">
+            <a href="{{pathFor 'coursesListing'}}">
+                <i class="fa fa-th-large"></i>
+                <span class="hidden-sm visible-lg-inline-block">Courses</span>
+            </a>
+        </li>
+        <li class="{{#if mainMenuState 'community'}}active{{/if}} col-xs-6">
+            <a href="{{pathFor 'communityListing'}}">
+                <i class="fa fa-university"></i>
+                <span class="hidden-sm visible-lg-inline-block">Communities</span>
+            </a>
+        </li>
+        {{#with getLoggedIn}}
+            <li class="visible-xs col-xs-6">
+                <a href="{{pathFor 'uniProfile' _id=_id}}">
+                    {{#with getUserFromId _id}}
+                        {{#if getAvatar}}
+                            <img src="{{getAvatar}}" class="img-circle styled img-mini" alt="">
+                        {{else}}
+                            <img src="/img/160x160.gif" alt="" class="img-circle styled img-mini">
+                        {{/if}}
+                    {{/with}}
+                    {{name}}
+                </a>
+            </li>
+        {{/with}}
+        {{#if or isCourseMentorOrAdmin isAdminCommunities}}
+            <li class="{{#if mainMenuState 'manage'}}active{{/if}} col-xs-6">
+                <a href="{{pathFor 'adminManageView'}}">
+                    <i class="fa fa-cogs"></i>
+                    <span class="hidden-sm visible-lg-inline-block">Manage</span>
+                </a>
+            </li>
+        {{/if}}
+
+        {{#unless currentUser}}
+            <li class="{{#if mainMenuState 'about'}}active{{/if}} col-xs-6">
+                <a href="/page/about">
+                    <i class="fa fa-info-circle"></i>
+                    <span class="hidden-sm visible-lg-inline-block">About Us</span>
+                </a>
+            </li>
+            <li class="{{#if mainMenuState 'faq'}}active{{/if}} col-xs-6">
+                <a href="/page/faq">
+                    <i class="fa fa-question-circle"></i>
+                    <span class="hidden-sm visible-lg-inline-block">FAQ</span>
+                </a>
+            </li>
+        {{/unless}}
+    </ul>
+</template>
+
+<template name="layoutSecondMenu">
+    <div class="layout-second-menu-container-wrapper
+                js-layout-second-menu-container-wrapper
+                {{#unless sessionGet 'layoutSecondMenuShow'}}hidden{{/unless}}
+                {{#unless sessionGet 'layoutSecondMenuShowXS'}}hidden-xs{{/unless}}
+                {{#if sessionGet 'layoutSecondMenuHideSM'}}hidden-sm hidden-md hidden-lg{{/if}}">
+        <div class="layout-second-menu-container js-layout-second-menu-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        {{> yield region="layoutSecondMenu"}}
+                        <span class="time-zone-label pull-right"><i class="fa fa-clock-o"></i> Time zone: {{getTimeZone}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="menuContent">
+    <ul class="sf-menu text-center">
+        <li class="">
+            <a href="{{pathFor 'blogListing'}}" class="{{#if isActiveRoute 'blogListing'}}active{{/if}}">
+                <i class="fa fa-pencil-square-o"></i>
+                <span class="visible-xs-inline-block hidden-sm visible-lg-inline-block">Blogs</span>
+            </a>
+        </li>
+        <li class="">
+            <a href="{{pathFor 'projectListing'}}" class="{{#if isActiveRoute 'projectListing'}}active{{/if}}">
+                <i class="fa fa-clipboard"></i>
+                <span class="visible-xs-inline-block hidden-sm visible-lg-inline-block">Projects</span>
+            </a>
+        </li>
+    </ul>
+</template>
+
+<template name="coursesDropdownMenuItems">
+    {{#each this}}
+        <li>
+            <a href="#" class="js-switch-course">
+                {{title}}
+            </a>
+        </li>
+    {{/each}}
+</template>
+
+<template name="loggedInUserDropdownMenu">
+    {{#if isLoggedIn}}
+        {{#if or isAdminOrParticipating isGlobalStudent}}
+            <ul class="pull-right text-left user_panel loggedInUserDropdownMenu">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{#with getUserFromId _id}}
+                            {{#if getAvatar}}
+                                <img src="{{getAvatar}}" class="img-circle styled" alt="">
+                            {{else}}
+                                <img src="/img/160x160.gif" alt="" class="img-circle styled">
+                            {{/if}}
+                        {{/with}}
+                        <strong>{{name}}</strong> <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="{{pathFor 'uniProfile' _id=_id}}">
+                                <i class="icon-user"></i> Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/page/howto">
+                                <i class="fa fa-question howto-icon"></i> How to
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="js-start-chat-admin">
+                                <i class="fa fa-comment"></i> Feedback
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="js-logout-user">
+                                <i class="icon-logout"></i> Sign out
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        {{else}}
+            <a href="#" class="js-scroll-apply button_top red">Apply for a course!</a>
+            <a href="#" class="js-logout-user button_top">Sign out now</a>
+        {{/if}}
+    {{/if}}
+</template>
+
+<template name="lcLoginButtons">
+    {{#unless currentUser}}
+        <a href="{{pathFor 'entrySignUp'}}" class="pull-right button_top red" id="register_top">Sign up</a>
+        <a href="{{pathFor 'entrySignIn'}}" class="pull-right button_top mrm" id="login_top">Sign in</a>
+    {{/unless}}
+</template>
+
+<template name="chatDropdownMenu">
+    <ul class="pull-right text-left user_panel">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle navbar-icons" title="Messages" data-toggle="dropdown">
+                <span>
+                    <i class="fa fa-envelope"></i> {{> uniChatDropdownCount}}
+                </span>
+            </a>
+            {{> uniChatDropdown}}
+        </li>
+    </ul>
+</template>
+
+<template name="chatLinkIcon">
+    {{#if isAdminOrParticipating}}
+        <ul class="pull-right text-left user_panel">
+            <li class="dropdown">
+                <a href="{{pathFor 'uniChatInbox'}}" class="dropdown-toggle navbar-icons" title="Messages">
+                    <span>
+                        <i class="fa fa-envelope"></i> {{> uniChatDropdownCount}}
+                    </span>
+                </a>
+            </li>
+        </ul>
+    {{/if}}
+</template>
+
+<template name="coursesDropdownMenu">
+    {{#if or isAdminOrParticipating isAdminCommunities isGlobalStudent}}
+        <div class="coursesDropdownMenu dropdown pull-right text-left">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="true">
+                <span class="dropdown-ellipsis">{{getActiveCourseTitle}}</span>
+                <span class="caret-for-ellipsis caret"></span>
+            </button>
+            <ul class="dropdown-menu without-superfish" aria-labelledby="dropdownMenu1">
+                {{#if isInRole 'global_admin'}}
+                    {{#with getUserCoursesTitles}}
+                        {{> coursesDropdownMenuItems}}
+                    {{/with}}
+                {{else}}
+                    {{#if isInRole 'global_community_admin'}}
+                        {{#with getCommunityCourses}}
+                            {{> coursesDropdownMenuItems}}
+                        {{/with}}
+                    {{/if}}
+                    {{#with getUserCoursesTitles}}
+                        {{#if this.count}}
+                            <li class="courses-divider">Student in:</li>
+                        {{/if}}
+                        {{> coursesDropdownMenuItems}}
+                    {{/with}}
+                    {{#with getUserCoursesTitles 'mentor'}}
+                        {{#if this.count}}
+                            <li class="courses-divider">Mentor in:</li>
+                        {{/if}}
+                        {{> coursesDropdownMenuItems}}
+                    {{/with}}
+                {{/if}}
+            </ul>
+        </div>
+    {{/if}}
+</template>

@@ -1,0 +1,122 @@
+footer {
+    padding-top: 10px;
+    background-image: none;
+
+    @media (max-width: 767px) {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+
+        #nav-footer {
+            height: 37px;
+            font-size: 24px;
+        }
+    }
+}
+
+// circle
+
+@media (max-width: 767px) {
+    .circle-concept-container {
+        position: fixed;
+        z-index: 500;
+        left: 50%;
+        bottom: 0;
+        height: 37px;
+        min-height: 37px;
+        width: 100px;
+        margin-left: -50px;
+
+        .circle-concept-circle {
+            width: 30px;
+            height: 30px;
+
+            .circle-concept-circle {
+                margin-top: 3px;
+                width: 24px;
+                height: 24px;
+
+                .circle-concept-circle {
+                    margin-top: 4px;
+                    width: 16px;
+                    height: 16px;
+
+                    .circle-concept-circle {
+                        margin-top: 4px;
+                        width: 8px;
+                        height: 8px;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-filter-container {
+        position: fixed;
+        z-index: 500;
+        bottom: 0;
+        height: 37px;
+        line-height: 30px;
+        font-size: 24px;
+        color: #fff;
+        left: 0;
+        width: 50px;
+        text-align: center;
+    }
+
+    .filtersContainer {
+        position: fixed;
+        top: 37px;
+        left: 0;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        z-index: 500;
+
+        .consoleViewNavFilters {
+            border: 0;
+            color: #fff;
+            border-radius: 0;
+            box-shadow: none;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+
+            .consoleViewNavFiltersWrapper {
+                background: #1c1c1c;
+                height: 1000px;
+                padding: 15px;
+                display: none;
+                position: absolute;
+                top: 0;
+                width: 100%;
+            }
+
+            .nav-filter-btns {
+                ul.nav li {
+                    display: inline-block;
+                    float: none;
+                }
+            }
+
+            ul.nav {
+                li.active a {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .footer-search-toggle {
+        position: fixed;
+        z-index: 200;
+        bottom: 0;
+        right: 0;
+        font-size: 24px;
+        color: #fff;
+        height: 38px;
+        line-height: 30px;
+        width: 50px;
+        text-align: center;
+    }
+}

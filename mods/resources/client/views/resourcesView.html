@@ -1,0 +1,163 @@
+<template name="resourcesView">
+    <div class="row">
+        <aside class="col-xs-12 col-md-4 pull-right">
+            <div class="box_style_1">
+                <div class="widget">
+                    <a href="#" class="lc-btn-block-big">Write your own</a>
+                </div>
+
+                <div class="widget">
+                    <h4>Connect</h4>
+
+                    <div class="text-center">
+                        <ul id="follow_us">
+                            <li><a href="#"><i class="icon-google"></i></a></li>
+                            <li><a href="#"><i class="icon-facebook"></i></a></li>
+                            <li><a href="#"><i class="icon-twitter"></i></a></li>
+                            <li><a href="#"><i class="icon-instagram"></i></a></li>
+                            <li><a href="#"><i class="icon-pinterest"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="widget hidden-xs hidden-sm">
+                    <h4>Most popular</h4>
+
+                    {{#each repeat 4}}
+                        <div class="post-thumbnail">
+                            <a href="{{pathFor 'resourcesView'}}">
+                                <img src="/img/placeholder3.jpg" alt="">
+
+                                <div class="caption text-center">DUIS AUTE IRURE DOLOR IN REPREHENDERIT</div>
+                            </a>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </aside>
+        <div class="col-xs-12 col-md-8">
+            <div class="post">
+
+                <h2>Duis aute irure dolor in reprehenderit</h2>
+
+                <span class="createdby">Created by John Smith on February 16, 2015</span>
+
+                <img src="/img/placeholder3.jpg" alt="" class="img-responsive">
+
+                <p>
+                    Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit
+                    varius mi nascetur ridiculus mus. Nulla dui. Fusce feugiat malesuada odio. Morbi nunc odio, gravida
+                    at, cursus nec, luctus a, lorem.....
+                </p>
+
+                <p>
+                    Aenean iaculis sodales dui, non hendrerit lorem rhoncus ut. Pellentesque ullamcorper venenatis elit
+                    idaipiscingi Duis tellus neque, tincidunt eget pulvinar sit amet, rutrum nec urna. Suspendisse
+                    pretium laoreet elit vel ultricies. Maecenas ullamcorper ultricies rhoncus. Aliquam erat volutpat.
+                </p>
+
+                <p>
+                    Praesent vestibulum molestie lacus. Aenean nonummy hendrerit mauris. Phasellus porta. Fusce suscipit
+                    varius mi nascetur ridiculus mus. Nulla dui. Fusce feugiat malesuada odio. Morbi nunc odio, gravida
+                    at, cursus nec, luctus a, lorem.....
+                </p>
+
+                <p>
+                    Aenean iaculis sodales dui, non hendrerit lorem rhoncus ut. Pellentesque ullamcorper venenatis elit
+                    idaipiscingi Duis tellus neque, tincidunt eget pulvinar sit amet, rutrum nec urna. Suspendisse
+                    pretium laoreet elit vel ultricies. Maecenas ullamcorper ultricies rhoncus. Aliquam erat volutpat.
+                </p>
+            </div>
+
+            <hr>
+
+            <h4>3 comments</h4>
+
+            <div id="comments">
+                <ol>
+                    <li>
+                        <div class="avatar">
+                            <img src="/img/placeholder2.jpg" width="50" alt="">
+                        </div>
+                        <div class="comment_right clearfix">
+                            <div class="comment_info">
+                                Posted by <a href="#">Anna Smith</a><span>|</span> 25 apr 2019 <span>|</span><a
+                                href="#">Reply</a>
+                            </div>
+                            <p>
+                                Nam cursus tellus quis magna porta adipiscing. Donec et eros leo, non pellentesque arcu.
+                                Curabitur vitae mi enim, at vestibulum magna. Cum sociis natoque penatibus et magnis dis
+                                parturient montes, nascetur ridiculus mus. Sed sit amet sem a urna rutrumeger fringilla.
+                                Nam vel enim ipsum, et congue ante.
+                            </p>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="avatar">
+                                    <img src="/img/placeholder2.jpg" width="50" alt="">
+                                </div>
+
+                                <div class="comment_right clearfix">
+                                    <div class="comment_info">
+                                        Posted by <a href="#">Tom Sawyer</a><span>|</span> 25 apr 2019 <span>|</span><a
+                                        href="#">Reply</a>
+                                    </div>
+                                    <p>
+                                        Nam cursus tellus quis magna porta adipiscing. Donec et eros leo, non
+                                        pellentesque arcu. Curabitur vitae mi enim, at vestibulum magna. Cum sociis
+                                        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
+                                        sit amet sem a urna rutrumeger fringilla. Nam vel enim ipsum, et congue ante.
+                                    </p>
+
+                                    <p>
+                                        Aenean iaculis sodales dui, non hendrerit lorem rhoncus ut. Pellentesque
+                                        ullamcorper venenatis elit idaipiscingi Duis tellus neque, tincidunt eget
+                                        pulvinar sit amet, rutrum nec urna. Suspendisse pretium laoreet elit vel
+                                        ultricies. Maecenas ullamcorper ultricies rhoncus. Aliquam erat volutpat.
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="avatar">
+                            <img src="/img/placeholder2.jpg" width="50" alt="">
+                        </div>
+
+                        <div class="comment_right clearfix">
+                            <div class="comment_info">
+                                Posted by <a href="#">Adam White</a><span>|</span> 25 apr 2019 <span>|</span><a
+                                href="#">Reply</a>
+                            </div>
+                            <p>
+                                Cursus tellus quis magna porta adipiscin
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <!-- End Comments -->
+
+            <h4>Leave a comment</h4>
+
+            <form action="#" method="post">
+                <div class="form-group">
+                    <input class="form-control style_2" type="text" name="name" value="Enter Name">
+                </div>
+                <div class="form-group">
+                    <input class="form-control style_2" type="text" name="mail" value="Enter Email">
+                </div>
+                <div class="form-group">
+                    <textarea name="message" class="form-control style_2" style="height:150px;">Message...</textarea>
+                </div>
+                <div class="form-group">
+                    <input type="reset" class="lc-btn-outline" value="Clear form">
+                    <input type="submit" class="lc-btn" value="Post Comment">
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+</template>

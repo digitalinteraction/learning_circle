@@ -1,0 +1,34 @@
+<template name="courseEdit">
+    {{#with course}}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class=" box_style_2">
+                        <span class="tape"></span>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>{{i18n 'courses.editLabel'}}</h3>
+                            </div>
+                        </div>
+                        <div class="mtl mbl">
+                            {{> courseUploadImage}}
+                        </div>
+                        {{> quickForm omitFields="avaibleSessionTimes, syllabus" collection="Colls.Courses" doc=. id="editCoursesForm" type="update" buttonClasses="button_subscribe_green"}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/with}}
+</template>
+
+<template name="courseUploadImage">
+    <input type="file" class="js-course-upload-input" style="display: none">
+    {{#with courseFileObj}}
+        <div>
+            <img src="{{url}}" alt="">
+        </div>
+    {{/with}}
+    <div>
+        <button class="mtm button_subscribe_green js-course-upload">Upload image</button>
+    </div>
+</template>

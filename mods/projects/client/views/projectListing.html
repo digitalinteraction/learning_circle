@@ -1,0 +1,100 @@
+<template name="projectListingHeader">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h1>{{i18n 'projects.listTitle'}}</h1>
+        </div>
+    </div>
+</template>
+
+<template name="projectListing">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3 pull-right">
+                <div class="box_style_1">
+                    <div class="widget">
+                        {{#with getLoggedIn}}
+                            {{#if isParticipating}}
+                                <a href="{{pathFor 'projectAdd'}}" class="lc-btn-block-big">{{i18n 'projects.createLabel'}}</a>
+                            {{/if}}
+                        {{/with}}
+                    </div>
+                    <div class="widget hidden-sm">
+                        {{> circleConceptFilterDesktop collectionName='Project'}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-8 col-md-9">
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{> headerWithSearch}}
+                    </div>
+                </div>
+                <div class="row js-keep-height">
+                    {{#if searchStatus.loading}}
+                        <div class="col-sm-12 text-center">
+                            <div class="spinner">
+                                <div class="double-bounce1"></div>
+                                <div class="double-bounce2"></div>
+                            </div>
+                        </div>
+                    {{/if}}
+
+                    {{#if searchStatus.loaded}}
+                        {{#each items}}
+                            <div class="col-sm-12 col-md-6">
+                                {{> projectListingItem}}
+                            </div>
+                        {{else}}
+                            <div class="col-sm-12 text-center">
+                                <h2>{{i18n 'common.searchNoResultsInfo'}}</h2>
+                            </div>
+                        {{/each}}
+                        {{#if showMore}}
+                            <div class="col-sm-12">
+                                <span class="lc-btn-block-big js-load-more">Load more</span>
+                            </div>
+                        {{/if}}
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="projectListingItem">
+    <div class="post post-narrow">
+
+        {{#uniEntity doc=this editMode=false}}
+
+            <h2 class="js-ellipsis-title">
+                <a href="{{pathFor 'projectView' _id=doc._id}}">{{doc.title}}</a>
+            </h2>
+
+            <a href="{{pathFor 'projectView' _id=doc._id}}">
+                {{#uniComponent name='image'}}
+                    <img src="{{url store='smallCover'}}" class="img-responsive fullwidth" alt="">
+                {{else}}
+                    <img src="/img/placeholder400x160.jpg" alt="" class="img-responsive fullwidth">
+                {{/uniComponent}}
+            </a>
+
+
+            {{#getUser doc.ownerId}}
+                <div class="blog-item-createdby project">
+                    {{#if avatar}}
+                        <a class="blog-item-avatar-link" href="{{pathFor 'uniProfile' _id=user._id}}">
+                            <img class="blog-item-avatar" alt="{{user.name}}"
+                                 src="{{avatar.url store='thumbs'}}">
+                        </a>
+                    {{/if}}
+                    <span class="blog-item-author">
+                        by <a href="{{pathFor 'uniProfile' _id=user._id}}">{{user.name}}</a><span class="hidden-md"> on {{formatDate ../doc.createdAt 'MMMM Do YYYY'}}</span>
+                    </span>
+                </div>
+            {{/getUser}}
+            <p class="js-ellipsis-brief">{{> uniComponent name='brief'}}</p>
+
+        {{/uniEntity}}
+
+    </div>
+</template>

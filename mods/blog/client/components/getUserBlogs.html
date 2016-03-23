@@ -1,0 +1,7 @@
+<template name="getUserBlogs">
+    {{#if Template.subscriptionsReady}}
+        {{#each posts}}
+            {{> blogListingItem}}
+        {{/each}}
+    {{/if}}
+</template>

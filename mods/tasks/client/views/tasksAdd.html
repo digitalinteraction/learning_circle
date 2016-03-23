@@ -1,0 +1,26 @@
+<template name="tasksAdd">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class=" box_style_2">
+                    <span class="tape"></span>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>{{i18n 'tasks.createLabel'}}</h3>
+                        </div>
+                    </div>
+                    {{> quickForm omitFields="course, createdAt" collection="Colls.Tasks" class="tasks-insert-form" id="insertTasksForm" type="insert" buttonClasses="button_subscribe_green"}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="tasksAddHeader">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h1>{{i18n 'tasks.addLabel'}}</h1>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,35 @@
+<template name="headerWithSearch">
+    <div class="search-form">
+        <div class="input-group">
+            <input type="text" placeholder="Search for..."
+                   class="form-control style-2 js-search-source"
+                   autocomplete="off">
+
+            <span class="input-group-btn">
+                <button class="btn" type="submit">
+                    <i class="icon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+
+    <div class="footer-search-toggle js-search-toggle visible-xs">
+        <i class="fa fa-search"></i>
+    </div>
+</template>
+
+<template name="headerWithSearch2">
+    <div class="search-form">
+        <div class="input-group">
+            {{> esInput index=index class="form-control style-2" placeholder="Search for..." }}
+            <span class="input-group-btn">
+                <button class="btn" type="submit">
+                    <i class="icon-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="footer-search-toggle js-search-toggle visible-xs">
+        <i class="fa fa-search"></i>
+    </div>
+</template>

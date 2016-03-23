@@ -1,0 +1,30 @@
+<template name="consoleViewApplicantsTab">
+    <div class="applicants-tab" id="applicants">
+        <div class="row">
+            <div class="col-sm-8">
+                <h3>{{i18n 'courses.applicantsLabel'}}</h3>
+            </div>
+<!--             <div class="col-sm-4">
+                <a href="#" class="lc-btn mbn pull-right">{{i18n 'classView.sendMsgToAll'}}</a>
+            </div> -->
+        </div>
+        <div class="panel panel-info filterable add_bottom_45">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{i18n 'courses.studentsLabel'}}</h3>
+            </div>
+            <div class="panel-body">
+                <!-- applicants datatables -->
+                {{> consoleApplicantsStudents}}
+            </div>
+        </div>
+        <div class="panel panel-info filterable add_bottom_45">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{i18n 'courses.mentorsLabel'}}</h3>
+            </div>
+            <div class="panel-body">
+                <!-- applicants-mentors datatables -->
+                {{> consoleApplicantsMentors}}
+            </div>
+        </div>
+    </div>
+</template>

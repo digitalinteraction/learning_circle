@@ -1,0 +1,104 @@
+<template name="groupsView">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="group-tab" id="group">
+                    {{#if getAllGroups.count}}
+                        <h3 class="mll">
+                            Groups
+                            <small class='pull-right mrl'>
+                                {{i18n 'courses.chooseGroup'}}:
+                                <select class="js-choose-group">
+                                    {{#each getAllGroups}}
+                                        <option value="{{_id}}">
+                                            {{title}} - {{calcTzSessionsTime sessionDay sessionHour sessionTimezone}}
+                                        </option>
+                                    {{/each}}
+                                </select>
+                                {{#if waitingForApproval}}
+                                    <p class="pull-right"><strong>{{i18n 'courses.applicationConsiderationMsg'}}..</strong></p>
+                                {{/if}}
+                            </small>
+                        </h3>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 class="mll">{{getChoosenGroupLabel}}</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {{#each getAllUsersInGroup.students}}
+                                {{> groupsViewUserItem}}
+                            {{/each}}
+                            {{#each getAllUsersInGroup.mentors}}
+                                {{> groupsViewUserMentorItem}}
+                            {{/each}}
+                        </div>
+                    {{else}}
+                        <h3>{{i18n 'groups.noCreatedYet'}}</h3>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="groupsViewUserItem">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+        <div class=" group-item-box">
+            <div class="left-side">
+                <a href="{{pathFor 'uniProfile' _id=_id}}">{{> consoleViewGroupsTabAvatar}}</a>
+            </div>
+            <div class="right-side">
+                <div class="username"><a href="{{pathFor 'uniProfile' _id=_id}}">{{name}} {{surname}}</a></div>
+                <div class="tools">
+                {{#if ne currentUser._id _id}}
+                    {{> customUniChatStartBtn}}
+                {{/if}}
+                {{#if canGrantStudentChair}}
+                    {{#if isStudentChair}}
+                        <a href="#" class="mls js-cancel-student-chair-role" title="Unmark this person as student chair">
+                            <i class="fa fa-graduation-cap student-chair-icon"></i>
+                        </a>
+                    {{else}}
+                        <a href="#" class="mls js-grant-student-chair-role" title="Mark this person as student chair">
+                            <i class="fa fa-graduation-cap"></i>
+                        </a>
+                    {{/if}}
+                {{/if}}
+                {{#if isStudentChair}}<small>[ student chair ]</small>{{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="groupsViewUserMentorItem">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+        <div class=" group-item-box">
+            <div class="left-side">
+                <a href="{{pathFor 'uniProfile' _id=_id}}">{{> consoleViewGroupsTabAvatar}}</a>
+            </div>
+            <div class="right-side">
+                <div class="username"><a href="{{pathFor 'uniProfile' _id=_id}}">{{name}} {{surname}}</a></div>
+                <div class="tools">
+                    {{#if ne currentUser._id _id}}
+                        {{> customUniChatStartBtn}}
+                    {{/if}}
+                    {{#if canGrantStudentChair}}
+                        {{#if isStudentChair}}
+                            <a href="#" class="mls js-cancel-student-chair-role" title="Unmark this person as student chair">
+                                <i class="fa fa-graduation-cap student-chair-icon"></i>
+                            </a>
+                        {{else}}
+                            <a href="#" class="mls js-grant-student-chair-role" title="Mark this person as student chair">
+                                <i class="fa fa-graduation-cap"></i>
+                            </a>
+                        {{/if}}
+                    {{/if}}
+                    {{#if isStudentChair}}<small>[ student chair ]</small>{{/if}}
+                    <span>MENTOR</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

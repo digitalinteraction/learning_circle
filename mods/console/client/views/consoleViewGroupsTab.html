@@ -1,0 +1,136 @@
+<template name="consoleViewGroupsTab">
+    <div class="group-tab" id="group">
+        {{#if getAllGroups.count}}
+                <h3>
+                    Groups
+                    <small class='pull-right'>
+                        {{#if isCourseMentorOrAdmin}}
+                            <a href="#" class="lc-btn mbn">{{i18n 'classView.sendMsgToAll'}}</a>
+                        {{/if}}
+                    </small>
+                    <small class='pull-right'>
+                        {{i18n 'courses.chooseGroup'}}:
+                            <select class="js-choose-group">
+                                {{#each getAllGroups}}
+                                    <option value="{{_id}}">
+                                        {{title}} - {{calcTzSessionsTime sessionDay sessionHour sessionTimezone}}
+                                    </option>
+                                {{/each}}
+                            </select>
+                        {{#if waitingForApproval}}
+                            <p class="pull-right"><strong>{{i18n 'courses.applicationConsiderationMsg'}}..</strong></p>
+                        {{/if}}
+                    </small>
+                </h3>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>{{getChoosenGroupLabel}}</h3>
+                </div>
+                {{> allUsersInGroup}}
+            </div>
+        {{else}}
+            <div class="row">
+                <div class="col-sm-12 ptl">
+                    {{#if isInRole 'global_admin'}}
+                        <a href="#" class="lc-btn js-create-groups">Create groups for this course</a>
+                        {{else}}
+                        <h3>Global admin have to create groups first</h3>
+                    {{/if}}
+                </div>
+            </div>
+        {{/if}}
+
+        <!-- Notes (mockup only) - not planned now ?? -->
+        <!-- <div class="row">
+            <div class="col-sm-12">
+                <div class="box_style_1">
+                    <h4>{{i18n 'common.notes'}}</h4>
+                    <div class="media list_news">
+                        <div class="circ-wrapper pull-left"><h3>15<br>July</h3></div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#">Ne nisl idque fierent vix</a></h4>
+                            <p>Lorem ipsum dolor sit amet, ius minim gubergren ad. At mei sumo sonet audiam, ad mutat elitr platonem vix. Ne nisl idque fierent vix. Ferri clita ponderum ne duo, simul appellantur reprehendunt mea an. An gloriatur vulputate eos, an sed fuisset vituperatoribus, tation tritani prodesset ex sed. </p>
+                            <small><em>Posted By Admin</em></small>
+                            <a href="#" class="lc-btn mbn pull-right">Edit</a>
+                        </div>
+                    </div>
+                    <div class="media list_news">
+                        <div class="circ-wrapper pull-left"><h3>15<br>July</h3></div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#">Ne nisl idque fierent vix</a></h4>
+                            <p>Lorem ipsum dolor sit amet, ius minim gubergren ad. At mei sumo sonet audiam, ad mutat elitr platonem vix. Ne nisl idque fierent vix. Ferri clita ponderum ne duo, simul appellantur reprehendunt mea an. An gloriatur vulputate eos, an sed fuisset vituperatoribus, tation tritani prodesset ex sed. </p>
+                            <small><em>Posted By Admin</em></small>
+                            <a href="#" class="lc-btn mbn pull-right">Edit</a>
+                        </div>
+                    </div>
+                    <div class="media list_news">
+                        <div class="circ-wrapper pull-left"><h3>15<br>July</h3></div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#">Ne nisl idque fierent vix</a></h4>
+                            <p>Lorem ipsum dolor sit amet, ius minim gubergren ad. At mei sumo sonet audiam, ad mutat elitr platonem vix. Ne nisl idque fierent vix. Ferri clita ponderum ne duo, simul appellantur reprehendunt mea an. An gloriatur vulputate eos, an sed fuisset vituperatoribus, tation tritani prodesset ex sed. </p>
+                            <small><em>Posted By Admin</em></small>
+                            <a href="#" class="lc-btn mbn pull-right">Edit</a>
+                        </div>
+                    </div>
+                    <div class="media list_news">
+                        <div class="circ-wrapper pull-left"><h3>15<br>July</h3></div>
+                        <div class="media-body">
+                            <h4 class="media-heading"><a href="#">Ne nisl idque fierent vix</a></h4>
+                            <p>Lorem ipsum dolor sit amet, ius minim gubergren ad. At mei sumo sonet audiam, ad mutat elitr platonem vix. Ne nisl idque fierent vix. Ferri clita ponderum ne duo, simul appellantur reprehendunt mea an. An gloriatur vulputate eos, an sed fuisset vituperatoribus, tation tritani prodesset ex sed. </p>
+                            <small><em>Posted By Admin</em></small>
+                            <a href="#" class="lc-btn mbn pull-right">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+</template>
+
+<template name="allUsersInGroup">
+    {{#each getAllUsersInGroup.students}}
+        {{> groupsViewUserItem}}
+    {{/each}}
+    {{#each getAllUsersInGroup.mentors}}
+        {{> groupsViewUserMentorItem}}
+    {{/each}}
+</template>
+
+<template name="consoleViewGroupsTabUsers">
+    <div class="col-md-3 col-sm-4">
+        <div class=" box_style_3">
+            <p>
+                {{> consoleViewGroupsTabAvatar}}
+            </p>
+            <h4 class="p-title">
+                {{name}} {{surname}} <br>
+                {{#if ne currentUser._id _id}}
+                    {{> customUniChatStartBtn}}
+                {{/if}}
+                {{#if canGrantStudentChair}}
+                    {{#if isStudentChair}}
+                        <a href="#" class="mls js-cancel-student-chair-role" title="Unmark this person as student chair">
+                            <i class="fa fa-graduation-cap student-chair-icon"></i>
+                        </a>
+                    {{else}}
+                        <a href="#" class="mls js-grant-student-chair-role" title="Mark this person as student chair">
+                            <i class="fa fa-graduation-cap"></i>
+                        </a>
+                    {{/if}}
+                {{/if}}
+                {{#if isStudentChair}}<p><small>[ student chair ]</small></p>{{/if}}
+            </h4>
+        </div>
+    </div>
+</template>
+
+<template name="consoleViewGroupsTabAvatar">
+    {{#with getUserFromId _id}}
+        {{#if getAvatar}}
+            <img src="{{getAvatar}}" class="img-circle styled" alt="">
+        {{else}}
+            <img src="/img/160x160.gif" alt="" class="img-circle styled">
+        {{/if}}
+    {{/with}}
+</template>

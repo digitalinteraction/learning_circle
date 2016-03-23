@@ -1,0 +1,175 @@
+<template name="customProfileView">
+{{#with user}}
+
+    <div class="container">
+        <!-- modals -->
+        {{#if eq currentUser._id _id}}
+            {{> uniProfileSettings}}
+        {{/if}}
+
+        {{#if ne currentUser._id _id}}
+            {{> uniProfileReport}}
+        {{/if}}
+        <!-- end modals -->
+
+        <div class="row">
+            <aside class="col-sm-12">
+                <div class=" box_style_1 profile">
+
+                    <div class="row">
+
+                        <!-- avatar column -->
+                        <div class="col-sm-3">
+                            {{> uniProfileAvatar}}
+                            <ul class="social_teacher mtm">
+                                {{> customUniProfileButtons}}
+                                {{> customUniProfileStatus}}
+                            </ul>
+                        </div>
+
+                        <!-- user info column -->
+                        <div class="col-sm-4">
+                            {{> profileEditableFieldsList}}
+                        </div>
+
+                        <!-- other stuff column -->
+                        <div class="col-sm-5">
+                            {{!--> newsletterSubscriptionForm!--}}
+                                <p>
+                                    {{i18n 'common.timezoneSystemSettings'}}
+                                </p>
+                            {{> reportedBtns}}
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End box-sidebar -->
+            </aside>
+            <!-- End aside -->
+
+            <div class="col-xs-12 col-sm-12 col-md-7">
+                <div class="box_style_1">
+                    <h4>Published blogs</h4>
+                    <div class="widget">
+                        {{> getUserBlogs userId=_id}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="box_style_1">
+                    <h4>Projects</h4>
+                    <div class="widget">
+                        {{> getUserProjects userId=_id}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{{/with}}
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</template>
+
+<template name="reportedBtns">
+    {{#if isGlobalAdminOrMentor}}
+        <span class="lc-btn-outline profile-reported-btn js-reported-posts">{{i18n 'common.reportedPosts'}}</span>
+        <span class="lc-btn-outline profile-reported-btn js-reported-projects">{{i18n 'common.reportedProjects'}}</span>
+    {{/if}}
+</template>
+
+<template name="profileEditableFieldsList">
+    <ul>
+        <li>
+            {{i18n 'apply.firstNameLabel'}}
+            {{#if isAllowed _id}}
+                <input type="text" name="name" class="js-save-profile-field profile-field" value="{{name}}">
+            {{else}}
+                <span class="profile-field">{{name}}</span>
+            {{/if}}
+        </li>
+        <li>
+            {{i18n 'apply.lastNameLabel'}}
+            {{#if isAllowed _id}}
+                <input type="text" name="surname" class="js-save-profile-field profile-field" value="{{surname}}">
+            {{else}}
+                <span class="profile-field">{{surname}}</span>
+            {{/if}}
+        </li>
+        <li>
+            {{i18n 'apply.nationalityLabel'}}
+            {{#if isAllowed _id}}
+                <input type="text" name="nationality" class="js-save-profile-field profile-field" value="{{nationality}}">
+            {{else}}
+                <span class="profile-field">{{nationality}}</span>
+            {{/if}}
+        </li>
+        <li>
+            {{i18n 'apply.countryLabel'}}
+            {{#if isAllowed _id}}
+                <input type="text" name="country" class="js-save-profile-field profile-field" value="{{country}}">
+            {{else}}
+                <span class="profile-field">{{country}}</span>
+            {{/if}}
+        </li>
+        <li>
+            {{i18n 'apply.cityLabel'}}
+            {{#if isAllowed _id}}
+                <input type="text" name="city" class="js-save-profile-field profile-field" value="{{city}}">
+            {{else}}
+                <span class="profile-field">{{city}}</span>
+            {{/if}}
+        </li>
+        <li>
+            {{i18n 'apply.schoolLabel'}}
+            {{#if isAllowed _id}}
+                <input type="text" name="school" class="js-save-profile-field profile-field" value="{{school}}">
+            {{else}}
+                <span class="profile-field">{{school}}</span>
+            {{/if}}
+        </li>
+    </ul>
+</template>
+
+
+<template name="customUniProfileButtons">
+    {{#if ne currentUser._id _id}}
+        {{#if pluginChatExist}}
+            <li>
+                {{> customUniChatStartBtn}}
+            </li>
+        {{/if}}
+    {{/if}}
+    {{#if eq currentUser._id _id}}
+        <li>
+            <a href="#" data-toggle="modal" title="{{i18n 'profile.settings.title'}}" data-target="#settingsModal">
+                <i class="fa fa-cog"></i>
+            </a>
+        </li>
+    {{/if}}
+</template>
+
+
+<template name="customUniChatStartBtn">
+    <a href="#" class="js-start-chat" title="Send message"><i class="fa fa-envelope-o"></i></a>
+</template>
+
+
+<template name="customUniProfileStatus">
+    {{#if ne currentUser._id _id}}
+        {{#if status.online}}
+            <li>
+                <a href="#" title="{{i18n 'profile.userOnline'}}"><i class="fa fa-circle" style="color: green"></i></a>
+            </li>
+        {{else}}
+            <li>
+                <a href="#" title="{{i18n 'profile.userOffline'}} {{i18n 'profile.lastLogin'}} ({{formatDate status.lastLogin.date 'll'}})"><i class="fa fa-circle-o" style="color: red"></i></a>
+            </li>
+        {{/if}}
+    {{/if}}
+</template>
