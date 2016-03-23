@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'development') {
         appId: Meteor.settings.public.facebookAppId,
         secret: Meteor.settings.private.facebookAppSecret
     });
-    
+
     ServiceConfiguration.configurations.remove({
         service: 'google'
     });
