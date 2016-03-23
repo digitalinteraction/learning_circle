@@ -16,6 +16,8 @@ First start should be with settings (admin user credentials) `meteor --settings 
 
 fixtures.json
 ---------------
+```
+#!json
 {
     "mainAdminName": "Admin",
     "mainAdminSurname": "LC",
@@ -39,11 +41,15 @@ fixtures.json
         "facebookAppId": "xxxxxxxxxxxxxxxxxxxx"
     }
 }
+```
+
 
 ### Settings info
 
 settings.json
 -------------
+```
+#!json
 {
     "mainAdminName": "Admin",
     "mainAdminSurname": "LC",
@@ -60,7 +66,7 @@ settings.json
         "stripePublicKey": "xxxxxxxxxxxxxxxxxxxxxxxx"
     }
 }
-
+```
 
 ### Buttons
 
