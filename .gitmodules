@@ -4,9 +4,6 @@
 [submodule "packages/universe-profile"]
 	path = packages/universe-profile
 	url = git@bitbucket.org:vazco/universe-profile.git
-[submodule "packages/vazco-tools-messages"]
-	path = packages/vazco-tools-messages
-	url = git@bitbucket.org:vazco/m_vazco_tools_messages.git
 [submodule "packages/universe-cms"]
 	path = packages/universe-cms
 	url = git@bitbucket.org:vazco/universe-cms.git
