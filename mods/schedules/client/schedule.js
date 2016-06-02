@@ -53,3 +53,10 @@ Template.consoleViewLectureScheduleItem.events({
         scheduleAction(Template.currentData(), 'later');
     }
 });
+
+Template.registerHelper('getMovieTitle', function (link) {
+    if (link.match(/youtu\.?be/gi)) {
+        return 'YouTube';
+    }
+    return 'Hangout'
+});
