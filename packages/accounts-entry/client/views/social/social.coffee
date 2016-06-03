@@ -30,8 +30,9 @@ Template.entrySocial.events
       Session.set 'talkingToServer', false
       if (!err)
         if Session.get('fromWhere')
-          Router.go Session.get('fromWhere')
+          Session.set('desiredRouteOnLogin', Session.get('fromWhere'))
           Session.set('fromWhere', undefined)
+          Router.go AccountsEntry.settings.dashboardRoute
         else
           Router.go AccountsEntry.settings.dashboardRoute
       else if (err instanceof Accounts.LoginCancelledError)
