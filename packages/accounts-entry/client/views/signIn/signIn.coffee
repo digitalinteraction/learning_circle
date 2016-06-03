@@ -45,8 +45,9 @@ AccountsEntry.entrySignInEvents = {
       if error
         T9NHelper.accountsError error
       else if Session.get('fromWhere')
-        Router.go Session.get('fromWhere')
+        Session.set('desiredRouteOnLogin', Session.get('fromWhere'));
         Session.set('fromWhere', undefined)
+        Router.go AccountsEntry.settings.dashboardRoute
       else
         Router.go AccountsEntry.settings.dashboardRoute
     )
