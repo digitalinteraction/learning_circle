@@ -38,7 +38,7 @@
                                                  <span>{{calcTzSessionsTime sessionDay sessionHour sessionTimezone date 'HH:mm'}}</span>
                                                 <span class="time-zone-label">(Time zone {{getTimeZone}})</span>
                                                 <div class="hangout-button seledin-text">
-                                                    <a href="{{hangoutLink}}?authuser=0"> <i class="fa fa-video-camera"></i> Hangout</a>
+                                                    <a href="{{hangoutLink}}?authuser=0" target="_blank"> <i class="fa fa-video-camera"></i> {{getMovieTitle hangoutLink}}</a>
                                                 </div>
                                             </h4>
                                             <h3 class="river-title-header">{{title}}</h3>
@@ -99,7 +99,7 @@
                                                 <span class="mtm">{{formatDate date 'll'}}</span> <span class="mtm">{{getTime}}</span>
                                                 <span class="time-zone-label">(Time zone {{getTimeZone}})</span>
                                                 <div class="hangout-button seledin-text">
-                                                    <span><a href="{{hangoutLink}}?authuser=0"><i class="fa fa-video-camera"></i> Hangout</a></span>
+                                                    <span><a href="{{hangoutLink}}?authuser=0" target="_blank"><i class="fa fa-video-camera"></i> {{getMovieTitle hangoutLink}}</a></span>
                                                 </div>
                                             </h4>
                                             <h3 class="river-title-header">{{title}}</h3>
