@@ -9,7 +9,7 @@
                             <small class='pull-right mrl'>
                                 {{i18n 'courses.chooseGroup'}}:
                                 <select class="js-choose-group">
-                                    {{#each getAllGroups}}
+                                    {{#each getAllGroups true}}
                                         <option value="{{_id}}">
                                             {{title}} - {{calcTzSessionsTime sessionDay sessionHour sessionTimezone}}
                                         </option>

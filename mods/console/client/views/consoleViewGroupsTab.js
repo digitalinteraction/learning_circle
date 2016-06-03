@@ -15,7 +15,10 @@ Template.registerHelper('getAllUsersInGroup', function () {
     var groupId = Session.get('activeGroupId');
     var courseId = Session.get('activeCourseId');
     var group = groupId && Colls.Groups.findOne({_id: groupId});
-    var groupUsers = group && group.users;
+    var groupUsers = [];
+    if (group && group.users) {
+        groupUsers = group.users;
+    }
     if (_.isArray(groupUsers)) {
         return {
             students: Meteor.users.find({_id: {$in: groupUsers}, courses: courseId}),
@@ -24,22 +27,23 @@ Template.registerHelper('getAllUsersInGroup', function () {
     }
 });
 
-// TODO: refactor
 Template.consoleViewGroupsTab.onRendered(function () {
     var groupId;
     var groupLabel;
+    var self = this;
     this.autorun(function () {
         if (Session.get('activeCourseId')) {
-            Meteor.defer(function () {
-                groupId = this.$('.js-choose-group').val();
-                groupLabel = this.$('.js-choose-group').find('option[value="' + groupId + '"]').text();
+            var sub = self.subscribe('courseMembers', Session.get('activeCourseId'));
+            if (sub.ready()) {
+                groupId = self.$('.js-choose-group').val();
+                groupLabel = self.$('.js-choose-group').find('option[value="' + groupId + '"]').text();
                 if (groupId && groupLabel) {
                     Session.set('activeGroupId', groupId);
                     Session.set('activeGroupLabel', groupLabel);
                 }
-            }.bind(this));
+            }
         }
-    }.bind(this));
+    });
 });
 
 Template.consoleViewGroupsTab.helpers({

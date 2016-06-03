@@ -51,7 +51,8 @@ Router.map(function () {
             var courseId = Session.get('activeCourseId');
             if (courseId) {
                 return [
-                    Meteor.subscribe('courseGroups', courseId)
+                    Meteor.subscribe('courseGroups', courseId),
+                    Meteor.subscribe('courseMembers', courseId)
                 ];
             }
         },

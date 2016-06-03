@@ -153,7 +153,14 @@ Template.consoleViewTasksTableCell.events({
     }
 });
 
-Template.registerHelper('getAllGroups', function () {
+Template.registerHelper('getAllGroups', function (setActiveGroup) {
     var currentCourseContextId = Session.get('activeCourseId');
-    return Colls.Groups.find({course: currentCourseContextId}, {sort: {title: 1}});
+    var groups = Colls.Groups.find({course: currentCourseContextId}, {sort: {title: 1}});
+    if (setActiveGroup && !Session.get('activeGroupId')) {
+        var fetchGroups = groups.fetch();
+        if (fetchGroups.length) {
+            Session.set('activeGroupId', fetchGroups[0]._id);
+        }
+    }
+    return groups;
 });

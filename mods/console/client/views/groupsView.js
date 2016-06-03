@@ -7,22 +7,24 @@ var checkUserRole = function (user, roles) {
     }
 };
 
-// TODO: refactor
+
 Template.groupsView.onRendered(function () {
     var groupId;
     var groupLabel;
+    var self = this;
     this.autorun(function () {
         if (Session.get('activeCourseId')) {
-            Meteor.defer(function () {
-                groupId = this.$('.js-choose-group').val();
-                groupLabel = this.$('.js-choose-group').find('option[value="' + groupId + '"]').text();
+            var sub = self.subscribe('courseMembers', Session.get('activeCourseId'));
+            if (sub.ready()) {
+                groupId = self.$('.js-choose-group').val();
+                groupLabel = self.$('.js-choose-group').find('option[value="' + groupId + '"]').text();
                 if (groupId && groupLabel) {
                     Session.set('activeGroupId', groupId);
                     Session.set('activeGroupLabel', groupLabel);
                 }
-            }.bind(this));
+            }
         }
-    }.bind(this));
+    });
 });
 
 Template.groupsView.helpers({
