@@ -105,6 +105,10 @@ UniProfile.config({
             type: String,
             optional: true
         },
+        base64Avatar: {
+            type: String,
+            optional: true
+        },
         howDidYouHear: {
             type: String,
             label: 'How did you hear about this course?',

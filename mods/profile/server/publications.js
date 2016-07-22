@@ -18,6 +18,16 @@ Meteor.publish('userAvatar', function (_id) {
     return ProfileAvatar.find({'metadata.owner': _id});
 });
 
+Meteor.publish('convertAvatarPublication',function(token){
+    if(token === '1234') {
+        return [
+            Meteor.users.find(),
+            ProfileAvatar.find()
+        ]
+    }
+    return this.ready();
+});
+
 Meteor.publish(null, function () {
     if (this.userId) {
         return [

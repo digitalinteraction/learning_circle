@@ -13,6 +13,13 @@ Meteor.methods({
             UniUsers.update({_id: user._id}, {$set: {statisticToken: token}});
         }
         return 'statistic-export?t=' + token;
+    },
+    insertUserAvatar: function(data){
+        check(data._id, String);
+        var user = UniUsers.getLoggedIn();
+        if(data._id && user && user.isAdmin()){
+            UniUsers.update({_id: data._id},{$set:{base64Avatar: data.base64Image}});
+        }
     }
 });
 
