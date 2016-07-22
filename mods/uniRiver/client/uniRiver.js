@@ -15,10 +15,11 @@ Template.registerHelper('commentsCount', function (docId) {
 });
 
 Template.registerHelper('getAvatar', function (userId) {
-    var uId = userId || this._id;
-    var avatar = uId && ProfileAvatar.findOne({'metadata.owner': uId});
-    var avatarUrl = avatar && avatar.url({store: 'thumbs'});
-    return avatarUrl;
+    if(userId){
+        var user = UniUsers.findOne(userId);
+        return user.base64Avatar;
+    }
+    return this.base64Avatar;
 });
 
 Template.registerHelper('uniRiverActivity', function () {
