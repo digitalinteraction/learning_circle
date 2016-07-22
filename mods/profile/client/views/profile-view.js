@@ -11,6 +11,15 @@ Template.profileEditableFieldsList.events({
     }
 });
 
+Template.uniProfile.helpers({
+    getCropParams: function(){
+        console.log(this);
+        return {
+            userId: this._id
+        };
+    }
+});
+
 Template.profileEditableFieldsList.helpers({
     getTimezone: function () {
         return '';

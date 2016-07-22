@@ -16,7 +16,10 @@ Template.getUser.helpers({
     },
     avatar: function () {
         if (typeof this === 'string') {
-            return ProfileAvatar.findOne({'metadata.owner': this});
+            var user = UniUsers.findOne(this,{fields:{base64Avatar:1}});
+            return {
+                url: function(){ return user.base64Avatar}
+            };
         }
     }
 });

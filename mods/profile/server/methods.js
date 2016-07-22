@@ -38,5 +38,28 @@ Meteor.methods({
         if (this.userId) {
             Meteor.users.update({_id: this.userId}, {$set: obj});
         }
+    },
+    saveProfileAvatar: function(data){
+        var base64image = data.base64image;
+        var userId = data.userId;
+        check(this.userId, String);
+        check(userId, String);
+        var userSetUpdate = {
+            base64Avatar: base64image.md
+        };
+        if(userId === this.userId){
+            UniUsers.update({_id: userId},{$set: userSetUpdate});
+        }
+    },
+    removeProfileAvatar: function(data){
+        var userId = data.userId;
+        check(this.userId, String);
+        check(userId, String);
+        var userUnsetUpdate = {
+            base64Avatar: ''
+        };
+        if(userId === this.userId){
+            UniUsers.update({_id: userId},{$unset: userUnsetUpdate});
+        }
     }
 });

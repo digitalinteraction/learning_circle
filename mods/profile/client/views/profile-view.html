@@ -20,8 +20,8 @@
 
                         <!-- avatar column -->
                         <div class="col-sm-3">
-                            {{> uniProfileAvatar}}
-                            <ul class="social_teacher mtm">
+                                {{> uniCropImg croppedImage=getAvatar saveMethod='saveProfileAvatar' removeMethod='removeProfileAvatar' removeMethodParams=getCropParams saveMethodParams=getCropParams editable=true}}
+                                <ul class="social_teacher mtm">
                                 {{> customUniProfileButtons}}
                                 {{> customUniProfileStatus}}
                             </ul>

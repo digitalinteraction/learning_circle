@@ -160,8 +160,11 @@ tsega:bootstrap3-datetimepicker@4.17.37_1
 ui@1.0.8
 underscore@1.0.4
 universe:collection@2.0.8
+universe:ecmascript@0.6.7_1
 universe:fixes-for-third-party-packages@0.0.1
 universe:i18n@1.2.3
+universe:modules@0.6.8
+universe:modules-compiler@1.0.5
 universe:utilities@2.1.0
 universe:utilities-blaze@1.5.0
 url@1.0.5
@@ -178,6 +181,7 @@ vazco:universe-comments@0.0.1
 vazco:universe-core@1.6.8
 vazco:universe-core-plugin@0.0.3
 vazco:universe-html-purifier@1.2.3
+vazco:universe-images-crop@0.0.1
 vazco:universe-mail@0.0.1
 vazco:universe-notifications@0.0.2
 vazco:universe-profile@1.1.5
