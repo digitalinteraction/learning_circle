@@ -34,3 +34,6 @@
 [submodule "packages/universe-core"]
 	path = packages/universe-core
 	url = git@github.com:vazco/universe-core.git
+[submodule "packages/universe-images-crop"]
+	path = packages/universe-images-crop
+	url = git@bitbucket.org:vazco/universe-images-crop.git
