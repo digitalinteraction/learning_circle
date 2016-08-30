@@ -135,7 +135,7 @@ var studentsSubRowFormat = function (d) {
 
     if (d) {
         user = Meteor.users.findOne(d._id);
-        email = user.emails[0].address;
+        email = user.emails && user.emails[0].address;
         howDidYouHear = user.howDidYouHear;
         gender = d.gender;
         birthday = moment(d.birthday).format('ll');
@@ -304,7 +304,7 @@ var mentorsSubRowFormat = function (d) {
 
     if (d) {
         user = Meteor.users.findOne(d._id);
-        email = user.emails[0].address;
+        email = user.emails && user.emails[0].address;
         howDidYouHear = user.howDidYouHear;
         gender = d.gender;
         birthday = moment(d.birthday).format('ll');
